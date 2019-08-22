@@ -5,11 +5,11 @@ import static lexCode.Tokens.*;
 %type Tokens
 Letra=[a-zA-Z_]+
 Digito=[0-9]+
-Bit = [0-1NULL]
+Bit = [01] | "NULL"
 separador=[ ,\t,\r,\n]+
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
-Op = "+""-""*""/""%""<""<""<="">"">=""=""==""!=""&&""||""!"";"","",""."".""[""]""[]""("")""{""}""()""{}""@""#""##"
+Op = "+"|"-"|"*"|"/"|"%"|"<"|"<"|"<="|">"|">="|"="|"=="|"!="|"&&"|"||"|"!"|";"|","|","|"."|"."|"["|"]"|"[]"|"("|")"|"{"|"}"|"()"|"{}"|"@"|"#"|"##"
 WhiteSpace     = {LineTerminator} | [ \t\f]
 TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
@@ -17,19 +17,26 @@ DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent = ( [^*] | \*+ [^/*] )*
 apos = "'"
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
-String = '{apos}.{Letra}.{apos}'
+String = {apos} {Letra} ~{apos}
 Exponent=[eE] [\+\-]? [0-9]+
 Float1=[0-9]+ \. [0-9]+ {Exponent}?
 Float3=[0-9]+ \. {Exponent}?
 Float4=[0-9]+ {Exponent}
-Float=( {Float1} | {Float3} | {Float4} ) [fFdD]? | [0-9]+ [fFDd]
+FloatErr = [+-]? \. [0-9]+ {Exponent}?
+Float=( [-]? {Float1} | {Float3} | {Float4} ) [fFdD]? | [0-9]+ [fFDd]
 %{
 public String lexeme;
+public String line;
+public String column;
 %}
 %%
 {separador} {/*Ignore*/}
-{Comment} {/*Ignore*/}
-"//".* {/*Ignore*/}
+{Comment} {lexeme=yytext(); return COMMENT;}
+"//".* {lexeme=yytext(); return COMMENT;}
+{Bit} {lexeme=yytext(); return BIT;}
+{FloatErr} {lexeme=yytext(); return ERROR;}
+{Float} {lexeme=yytext(); return FLOAT;}
+{String} {lexeme=yytext(); return STRING;}
 {Op} {lexeme=yytext(); return OPERADORES;}
 ADD |
 EXTERNAL |
@@ -454,7 +461,4 @@ EXIT |
 PROC {lexeme=yytext(); return RESERVADAS;}
 {Letra} ({Letra} | {Digito})* {lexeme=yytext(); return IDENTIFICADORES;}
 ("(-"{Digito}+")") | {Digito}+ {lexeme=yytext(); return INT;}
-{Float} {lexeme=yytext(); return FLOAT;}
-{Bit} {lexeme=yytext(); return BIT;}
-{String} {lexeme=yytext(); return STRING;}
  . {return ERROR;}

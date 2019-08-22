@@ -120,7 +120,7 @@ public class FrmMain extends javax.swing.JFrame {
                 
                 switch(tokens){
                     case ERROR:
-                        result += "Undefinied Symbol";
+                        result += "<Undefinied Symbol> \r\n";
                         break;
                     case OPERADORES:
                         result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
@@ -145,7 +145,7 @@ public class FrmMain extends javax.swing.JFrame {
                         break;
                         
                     default:
-                        result += lexer.lexeme + "<NOT FOUND>";
+                        result += lexer.lexeme + "<NOT FOUND> \r\n";
                         break;
                         
                 }

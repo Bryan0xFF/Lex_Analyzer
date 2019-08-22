@@ -18,6 +18,7 @@ public enum Tokens {
     FLOAT,
     BIT,
     STRING,
+    COMMENT,
     ERROR
     
 }
