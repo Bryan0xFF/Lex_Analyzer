@@ -6,7 +6,6 @@
 package lexCode;
 
 import java.io.File;
-import jflex.*;
 
 /**
  *
@@ -14,7 +13,7 @@ import jflex.*;
  */
 public class MainClass {
     public static void main(String[] args) {
-        String path = "C:/Users/Bryan/Documents/NetBeansProjects/LexicalAnalyzer/src/lexCode/Lexer.flex";
+        String path = "C:/Users/Bryan/Documents/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Lexer.flex";
         GenLex(path);
     }
     

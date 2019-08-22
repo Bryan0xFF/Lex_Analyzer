@@ -5,8 +5,16 @@
  */
 package lexCode;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +27,7 @@ public class FrmMain extends javax.swing.JFrame {
      */
     public FrmMain() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -84,7 +93,68 @@ public class FrmMain extends javax.swing.JFrame {
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
         // TODO add your handling code here:
         File archive = new File("Archivo.txt");
-        //BufferedWriter bf = 
+        try {
+            FileWriter fw = new FileWriter(archive);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.append(txtEntrada.getText());
+            bw.flush();
+            bw.close();
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            Reader lector = new BufferedReader(new FileReader("Archivo.txt"));
+            Lexer lexer = new Lexer(lector);
+            String result = "";
+            
+            while(true){
+                Tokens tokens = lexer.yylex();
+                if(tokens == null) {
+                    result += "END";
+                    txtAreaOutput.setText(result);
+                    return;
+                }
+                
+                switch(tokens){
+                    case ERROR:
+                        result += "Undefinied Symbol";
+                        break;
+                    case OPERADORES:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                    case RESERVADAS:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                    case IDENTIFICADORES:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                    case INT:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                    case FLOAT:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                    case BIT:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                    case STRING:
+                        result += lexer.lexeme + ": <" + tokens + ">" + "\r\n";
+                        break;
+                        
+                    default:
+                        result += lexer.lexeme + "<NOT FOUND>";
+                        break;
+                        
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     /**
