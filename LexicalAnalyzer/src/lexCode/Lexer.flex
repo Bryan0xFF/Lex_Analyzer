@@ -3,34 +3,48 @@ import static lexCode.Tokens.*;
 %%
 %class Lexer
 %type Tokens
+%line
+%column
+
+Op = "+"|"-"|"*"|"/"|"%"|"<"|"<"|"<="|">"|">="|"="|"=="|"!="|"&&"|"||"|"!"|";"|","|","|"."|"."|"["|"]"|"[]"|"("|")"|"{"|"}"|"()"|"{}"|"@"|"#"|"##"
 Letra=[a-zA-Z_]+
+Separador2 = [,]
 Digito=[0-9]+
-Bit = [0-1NULL]
+SpaceTab = [ ,\t]*
+Bit = [01] | "NULL"
+Enter = [^\r\n]
+Newline = [\r\n]
 separador=[ ,\t,\r,\n]+
-LineTerminator = \r|\n|\r\n
-InputCharacter = [^\r\n]
-Op = "+""-""*""/""%""<""<""<="">"">=""=""==""!=""&&""||""!"";"","",""."".""[""]""[]""("")""{""}""()""{}""@""#""##"
-WhiteSpace     = {LineTerminator} | [ \t\f]
-TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
-DocumentationComment = "/**" {CommentContent} "*"+ "/"
-CommentContent = ( [^*] | \*+ [^/*] )*
-apos = "'"
-Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
-String = '{apos}.{Letra}.{apos}'
+Words = {Letra} | {Digito}
+String = "'" [^'] ~"'"
+StringErr1 = "'" ~[^'] ~. 
 Exponent=[eE] [\+\-]? [0-9]+
 Float1=[0-9]+ \. [0-9]+ {Exponent}?
 Float3=[0-9]+ \. {Exponent}?
 Float4=[0-9]+ {Exponent}
-Float=( {Float1} | {Float3} | {Float4} ) [fFdD]? | [0-9]+ [fFDd]
+FloatErr = [+-]? \. [0-9]+ {Exponent}?
+Float=( [-]? {Float1} | {Float3} | {Float4} ) [fFdD]? | [0-9]+ [fFDd]
+Single   = "--" [^] {Enter}* [\n]?
+SingleError = "-" [^] {Enter}* [\n]?
+Comun    = "/*"{Letra}*{Digito}*{Op}* ~{Enter}+"*/"| "/" "*"+ "/"
+Multiple = "/*"( [^*] | (\*+[^*/]) )*\*+\/
+MultipleError = "/*" ~[<<EOF>>] 
 %{
 public String lexeme;
+public int line;
+public int column;
 %}
 %%
+{Separador2} {lexeme=yytext(); line=yyline; column=yycolumn; return SEPARADOR;}
 {separador} {/*Ignore*/}
-{Comment} {/*Ignore*/}
-"//".* {/*Ignore*/}
-{Op} {lexeme=yytext(); return OPERADORES;}
+{Bit} {lexeme=yytext(); line=yyline; column=yycolumn; return BIT;}
+{FloatErr} {lexeme=yytext();line=yyline; column=yycolumn; return FLOATERROR;}
+{Float} {lexeme=yytext(); line=yyline; column=yycolumn; return FLOAT;}
+{String} {lexeme=yytext(); line=yyline; column=yycolumn; return STRING;}
+{Single} {lexeme=yytext(); line=yyline; column=yycolumn; return SINGLECOMMENT;}
+{StringErr1} {lexeme=yytext(); line=yyline; column=yycolumn; return STRINGERROR;}
+{MultipleError} {lexeme=yytext(); line=yyline; column=yycolumn; return ERRORCOMMENT;}
+{Op} {lexeme=yytext(); line=yyline; column=yycolumn; return OPERADORES;}
 ADD |
 EXTERNAL |
 PROCEDURE |
@@ -451,10 +465,9 @@ EXISTS |
 PRINT |
 WRITETEXT |
 EXIT |
-PROC {lexeme=yytext(); return RESERVADAS;}
-{Letra} ({Letra} | {Digito})* {lexeme=yytext(); return IDENTIFICADORES;}
-("(-"{Digito}+")") | {Digito}+ {lexeme=yytext(); return INT;}
-{Float} {lexeme=yytext(); return FLOAT;}
-{Bit} {lexeme=yytext(); return BIT;}
-{String} {lexeme=yytext(); return STRING;}
- . {return ERROR;}
+PROC {lexeme=yytext(); line=yyline; column=yycolumn; return RESERVADAS;}
+{Letra} ({Letra} | {Digito})* {lexeme=yytext(); line=yyline; column=yycolumn; return IDENTIFICADORES;}
+{SingleError} {lexeme=yytext(); line=yyline; column=yycolumn; return ERRORCOMMENT;}
+{Multiple} {lexeme=yytext(); line=yyline; column=yycolumn; return MULTICOMMENT;}
+("(-"{Digito}+")") | {Digito}+ {lexeme=yytext(); line=yyline; column=yycolumn; return INT;}
+ . {line=yyline; column=yycolumn; return ERROR;}

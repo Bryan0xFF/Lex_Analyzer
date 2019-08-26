@@ -5,8 +5,17 @@
  */
 package lexCode;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -83,8 +92,104 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
         // TODO add your handling code here:
-        File archive = new File("Archivo.txt");
-        //BufferedWriter bf = 
+      JFileChooser jf = new JFileChooser();
+        String path = "";
+        
+        if (jf.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            
+            path = jf.getSelectedFile().getAbsolutePath();
+        }
+        
+        File archive = new File("Archivo.out");
+        try {
+            FileWriter fw = new FileWriter(archive);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.append(txtEntrada.getText());
+            bw.flush();
+            bw.close();
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            Reader lector = new BufferedReader(new FileReader(path));
+            Lexer lexer = new Lexer(lector);
+            String result = "";
+            
+            while(true){
+                Tokens tokens = lexer.yylex();
+                if(tokens == null) {
+                    result += "END";
+                    txtAreaOutput.setText(result);
+                    return;
+                }
+                
+                switch(tokens){
+                    case ERROR:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case OPERADORES:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case RESERVADAS:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case IDENTIFICADORES:
+                        
+                        int length = lexer.yylength();
+                        if (length > 31){
+                            lexer.lexeme = lexer.lexeme.substring(0, 31);
+                            lexer.lexeme += " <RECORTADO> ";
+                        }
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case INT:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case FLOAT:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";;
+                        break;
+                    case BIT:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case STRING:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    case SINGLECOMMENT:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                     case MULTICOMMENT:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;  
+                    case SEPARADOR:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                        
+                    case ERRORCOMMENT:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                        
+                    case STRINGERROR:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                    
+                    case FLOATERROR:
+                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " column: " + lexer.column + " ]" +"\r\n";
+                        break;
+                        
+                    default:
+                        result += lexer.lexeme + " <NOT FOUND> \r\n";
+                        break;
+                        
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     /**

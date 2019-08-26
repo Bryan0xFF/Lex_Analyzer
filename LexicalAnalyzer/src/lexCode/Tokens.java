@@ -18,6 +18,13 @@ public enum Tokens {
     FLOAT,
     BIT,
     STRING,
-    ERROR
+    ERROR,
+    COMMENT,
+    SINGLECOMMENT,
+    MULTICOMMENT,
+    ERRORCOMMENT,
+    SEPARADOR,
+    STRINGERROR,
+    FLOATERROR
     
 }
