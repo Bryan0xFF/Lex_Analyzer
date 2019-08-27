@@ -39,14 +39,11 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtEntrada = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaOutput = new javax.swing.JTextArea();
         btnAnalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        txtEntrada.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 
         txtAreaOutput.setColumns(20);
         txtAreaOutput.setRows(5);
@@ -65,23 +62,16 @@ public class FrmMain extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+                    .addComponent(btnAnalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)))
+                .addGap(10, 10, 10)
+                .addComponent(btnAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -92,25 +82,17 @@ public class FrmMain extends javax.swing.JFrame {
 
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
         // TODO add your handling code here:
-      JFileChooser jf = new JFileChooser();
+        File archive = new File("Archivo.out");
+        JFileChooser jf = new JFileChooser();
         String path = "";
+        try{
+           FileWriter fw = new FileWriter(archive); 
+           BufferedWriter bw = new BufferedWriter(fw);
         
+          
         if (jf.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
             
             path = jf.getSelectedFile().getAbsolutePath();
-        }
-        
-        File archive = new File("Archivo.out");
-        try {
-            FileWriter fw = new FileWriter(archive);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.append(txtEntrada.getText());
-            bw.flush();
-            bw.close();
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try {
@@ -130,14 +112,20 @@ public class FrmMain extends javax.swing.JFrame {
                     case ERROR:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case OPERADORES:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case RESERVADAS:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case IDENTIFICADORES:
                         
@@ -148,57 +136,84 @@ public class FrmMain extends javax.swing.JFrame {
                         }
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case INT:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn" + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case FLOAT:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + "Finalcolumn" + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case BIT:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case STRING:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     case SINGLECOMMENT:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                      case MULTICOMMENT:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;  
                     case SEPARADOR:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                         
                     case ERRORCOMMENT:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                         
                     case STRINGERROR:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
                                 + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                     
                     case FLOATERROR:
                         result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";;
+                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                         
                     default:
                         result += lexer.lexeme + " <NOT FOUND> \r\n";
+                        bw.append(result);
+                        bw.flush();
                         break;
                         
                 }
             }
+        }catch (IOException ex){
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -245,6 +260,5 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JButton btnAnalizar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtAreaOutput;
-    private javax.swing.JTextField txtEntrada;
     // End of variables declaration//GEN-END:variables
 }

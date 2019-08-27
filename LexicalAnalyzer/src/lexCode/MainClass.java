@@ -14,7 +14,9 @@ import jflex.*;
  */
 public class MainClass {
     public static void main(String[] args) {
-        String path = "C:/Users/Bryan/Documents/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Lexer.flex";
+        File root = new File("");
+        String path = root.getAbsolutePath();
+        path += "/src/lexCode/Lexer.flex";
         GenLex(path);
     }
     
