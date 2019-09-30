@@ -25,6 +25,7 @@ public enum Tokens {
     ERRORCOMMENT,
     SEPARADOR,
     STRINGERROR,
-    FLOATERROR
+    FLOATERROR,
+    SIMBOLO
     
 }

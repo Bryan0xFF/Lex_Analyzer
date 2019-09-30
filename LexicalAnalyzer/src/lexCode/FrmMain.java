@@ -13,6 +13,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -85,6 +87,7 @@ public class FrmMain extends javax.swing.JFrame {
         File archive = new File("Archivo.out");
         JFileChooser jf = new JFileChooser();
         String path = "";
+        ArrayList<String> Statements = new ArrayList<String>();
         try{
            FileWriter fw = new FileWriter(archive); 
            BufferedWriter bw = new BufferedWriter(fw);
@@ -104,113 +107,87 @@ public class FrmMain extends javax.swing.JFrame {
                 Tokens tokens = lexer.yylex();
                 if(tokens == null) {
                     result += "END";
-                    txtAreaOutput.setText(result);
-                    return;
+                    Statements.add("$");
+                    Recursive_Descendent_Parser RDP = new Recursive_Descendent_Parser(Statements);
+                    try {
+                        RDP.Parse();
+                    } catch (Exception ex) {
+                        txtAreaOutput.setText(ex.getMessage());
+                        Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //txtAreaOutput.setText(result);
+                    break;
                 }
                 
                 switch(tokens){
                     case ERROR:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        result += lexer.lexeme + "|" + lexer.linea + "~";
+                        
                         break;
                     case OPERADORES:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        
+                        if(lexer.lexeme.equals(";")){
+                            result += lexer.lexeme + "|" + lexer.linea + "~";
+                            Statements.add(result);
+                            result = "";
+                        }
+                        
+                        result += lexer.lexeme + "|" + lexer.linea + "~";
+                        
                         break;
                     case RESERVADAS:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        if(lexer.lexeme.equals("GO")){
+                            result += lexer.lexeme + "|" + lexer.linea + "~";
+                            Statements.add(result);
+                            result = "";
+                        }
+                        result += lexer.lexeme + "|" + lexer.linea + "~";
+                        
                         break;
                     case IDENTIFICADORES:
                         
-                        int length = lexer.yylength();
-                        if (length > 31){
+                        //int length = lexer.yylength();
+                        /*if (length > 31){
                             lexer.lexeme = lexer.lexeme.substring(0, 30);
                             lexer.lexeme += " <RECORTADO> ";
-                        }
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        }*/
+                        result += tokens + "|" + lexer.linea + "~";
+                        
                         break;
                     case INT:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn" + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        result += "int" + "|" + lexer.linea + "~";
+                        
                         break;
-                    case FLOAT:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + "Finalcolumn" + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;
-                    case BIT:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;
-                    case STRING:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;
-                    case SINGLECOMMENT:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;
-                     case MULTICOMMENT:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;  
-                    case SEPARADOR:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                    case FLOAT: 
+                        result += "float" + "|" + lexer.linea + "~";
                         break;
                         
+                     case BIT:
+                        result += "bit" + "|" + lexer.linea + "~";
+                     break;
+                     case STRING:
+                         result += tokens + "|" + lexer.linea + "~";
+                     break;
+                        
+                    case SINGLECOMMENT: case MULTICOMMENT:case SEPARADOR:
+                        break;  
+                   
                     case ERRORCOMMENT:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        result += "ERROR" + "|" + lexer.linea + "~";
                         break;
                         
                     case STRINGERROR:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
+                        result += "ERROR" + "|" + lexer.linea + "~";
+                        
                         break;
                     
                     case FLOATERROR:
-                        result += lexer.lexeme + " : <" + tokens + ">" +  " [line: " + lexer.line + " Startcolumn: " + lexer.column 
-                                + " Finalcolumn " + (lexer.column + lexer.lexeme.length() - 1) + " ]" +"\r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;
-                        
-                    default:
-                        result += lexer.lexeme + " <NOT FOUND> \r\n";
-                        bw.append(result);
-                        bw.flush();
-                        break;
-                        
+                        result += "ERROR" + "|" + lexer.linea + "~";    
                 }
             }
+            
+            
+            
         }catch (IOException ex){
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
