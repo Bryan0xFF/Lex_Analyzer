@@ -14,12 +14,13 @@ import java.util.Arrays;
  */
 public class Recursive_Descendent_Parser {
     ArrayList<String> errorCollection = new ArrayList<String>();
-    String lookahead = "";
+    public static String lookahead = "";
     int lineaActual = 1;
     int countLinea = 0;
     int totalLineas = 0;
     ArrayList<String> data = new ArrayList<String>();
-    int count = 0;
+    public static int count = 0;
+    boolean flag = false;
     
     public Recursive_Descendent_Parser(ArrayList<String> data){
         
@@ -41,15 +42,52 @@ public class Recursive_Descendent_Parser {
                     break;
                 }
                 
-                String[] temp = data.get(count++).split("\\|");
-                lookahead = temp[0];
-                lineaActual = Integer.parseInt(temp[1]);
+                
+                    String[] temp = data.get(count++).split("\\|");
+                    lookahead = temp[0];
+                    lineaActual = Integer.parseInt(temp[1]);
+                    flag = true;
+                
                 //TODO: Aqui van los if correspondientes a: SELECT | ALTER | CREATE | DROP | TRUNCATE | ... | n
                  switch (lookahead.trim()){
             
                  case "ALTER":
                     S();
                     break;
+                     
+                 case "DROP":
+                     Drop_Rec_Parser DRP = new Drop_Rec_Parser(data, count);
+                     DRP.Parse_Drop();
+                     //probar
+                     break;
+                     
+                 case "TRUNCATE":
+                     Truncate_Rec_Parser TRP = new Truncate_Rec_Parser(data, count);
+                     TRP.Parse_Truncate();
+                     break;
+                     
+                 case "CREATE":
+                     Create_Rec_Parser CRP = new Create_Rec_Parser(data, count);
+                     CRP.ParseCreate();
+                     break;
+                     
+                 case "INSERT":
+                     Insert_Rec_Parser IRP = new Insert_Rec_Parser(data);
+                     IRP.Parse_Insert();
+                     break;
+                     
+                 case "DELETE":
+                     Delete_Rec_Parser DelRP = new Delete_Rec_Parser(data);
+                     DelRP.DeleteParse();
+                     break;
+                     
+                 case "SELECT":
+                     Select_Rec_Parser SRP = new Select_Rec_Parser(data);
+                     SRP.ParseSelect();
+                     break;
+                     
+                 case "UPDATE":
+                     break;
             
                 }
                  
@@ -59,7 +97,7 @@ public class Recursive_Descendent_Parser {
                 
                 for(int i = count; i < data.size(); i++){
                     
-                    String val = data.get(count++);
+                    String val = data.get(count++).trim();
                     
                     if( val.equals(";") || val.equals("GO")){
                         break;
@@ -78,16 +116,25 @@ public class Recursive_Descendent_Parser {
     
     private void Match(String val) throws Exception{
         
+        
         if(val.equals(";") && lookahead.equals("GO")){
-         String[] temp = data.get(count++).split("\\|");
-        lookahead = temp[0];
-        lineaActual = Integer.parseInt(temp[1]);  
+            
+            if(count + 1 < data.size()){
+                 String[] temp = data.get(count++).split("\\|");
+                 lookahead = temp[0];
+                 lineaActual = Integer.parseInt(temp[1]);
+                 return;
+            }
+        
         }
         
-        if(val.equals(lookahead)){
-        String[] temp = data.get(count++).split("\\|");
-        lookahead = temp[0];
-        lineaActual = Integer.parseInt(temp[1]);
+        if(val.toUpperCase().equals(lookahead)){
+            if(count + 1 < data.size()){
+               String[] temp = data.get(count++).split("\\|");
+                lookahead = temp[0];
+                lineaActual = Integer.parseInt(temp[1]); 
+            }
+        
         }
         else{
             throw new Exception("ERROR PARSING. LINEA: " + countLinea);
@@ -105,8 +152,21 @@ public class Recursive_Descendent_Parser {
         if (lookahead.equals("ALTER")){
             
             Match("ALTER");
-            Match("TABLE");
-            S_S();
+            
+            if(lookahead.equals("TABLE")){
+                Match("TABLE");
+                S_S();
+            }
+            
+            if(lookahead.equals("INDEX")){
+                Match("INDEX");
+                K();
+            }
+            
+            if(lookahead.equals("DATABASE")){
+                Match("DATABASE");
+            }
+            
             
         }else{
             throw new Exception("ERROR PARSING");
@@ -170,6 +230,10 @@ public class Recursive_Descendent_Parser {
         
         if(lookahead.equals("DROP")){
             O();
+        }
+        
+        if(lookahead.equals("$")){
+            Match("$");
         }
     }
     

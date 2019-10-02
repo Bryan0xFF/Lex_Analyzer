@@ -102,6 +102,7 @@ public class FrmMain extends javax.swing.JFrame {
             Reader lector = new BufferedReader(new FileReader(path));
             Lexer lexer = new Lexer(lector);
             String result = "";
+            ArrayList<String> err = new ArrayList<>();
             
             while(true){
                 Tokens tokens = lexer.yylex();
@@ -110,9 +111,28 @@ public class FrmMain extends javax.swing.JFrame {
                     Statements.add("$");
                     Recursive_Descendent_Parser RDP = new Recursive_Descendent_Parser(Statements);
                     try {
-                        RDP.Parse();
+                        err = RDP.Parse();
+                        
+                        if(err.isEmpty()){
+                            txtAreaOutput.setText("PARSEADO CORRECTAMENTE");
+                            return;
+                        }
+                        
+                        for(int i = 0; i < err.size(); i++){
+                            txtAreaOutput.setText(err.get(i));
+                        }
+                        
                     } catch (Exception ex) {
-                        txtAreaOutput.setText(ex.getMessage());
+                        
+                        if(err.isEmpty()){
+                            txtAreaOutput.setText("PARSEADO CORRECTAMENTE");
+                            return;
+                        }
+                        
+                        for(int i = 0; i < err.size(); i++){
+                            txtAreaOutput.setText(err.get(i));
+                        }
+                        
                         Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     //txtAreaOutput.setText(result);
@@ -128,6 +148,7 @@ public class FrmMain extends javax.swing.JFrame {
                         
                         if(lexer.lexeme.equals(";")){
                             result += lexer.lexeme + "|" + lexer.linea + "~";
+                            result += "$" + "|" + lexer.linea;
                             Statements.add(result);
                             result = "";
                         }
@@ -138,6 +159,7 @@ public class FrmMain extends javax.swing.JFrame {
                     case RESERVADAS:
                         if(lexer.lexeme.equals("GO")){
                             result += lexer.lexeme + "|" + lexer.linea + "~";
+                            result += "$" + "|" + lexer.linea;
                             Statements.add(result);
                             result = "";
                         }
@@ -155,15 +177,15 @@ public class FrmMain extends javax.swing.JFrame {
                         
                         break;
                     case INT:
-                        result += "int" + "|" + lexer.linea + "~";
+                        result += "INT" + "|" + lexer.linea + "~";
                         
                         break;
                     case FLOAT: 
-                        result += "float" + "|" + lexer.linea + "~";
+                        result += "FLOAT" + "|" + lexer.linea + "~";
                         break;
                         
                      case BIT:
-                        result += "bit" + "|" + lexer.linea + "~";
+                        result += "BIT" + "|" + lexer.linea + "~";
                      break;
                      case STRING:
                          result += tokens + "|" + lexer.linea + "~";
