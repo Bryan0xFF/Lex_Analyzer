@@ -1,0 +1,24 @@
+package lexCode;
+import java.cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal OPERADORES, RESERVADAS,IDENTIFICADORES,INT,FLOAT,BIT,STRING,ERROR,COMMENT,SINGLECOMMENT,MULTICOMMENT,ERRORCOMMENT,SEPARADOR,
+    STRINGERROR,FLOATERROR,SIMBOLO;
+non terminal A;
+
+start with A;
+
+A ::= RESERVADAS SIMBOLO INT
+;

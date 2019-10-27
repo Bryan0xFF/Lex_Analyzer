@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Bryan/Documents/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Create_Rec_Parser.java</file>
-            <file>file:/C:/Users/Bryan/Documents/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Drop_Rec_Parser.java</file>
-            <file>file:/C:/Users/Bryan/Documents/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Recursive_Descendent_Parser.java</file>
-            <file>file:/C:/Users/Bryan/Documents/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/FrmMain.java</file>
+            <file>file:/C:/Users/Bryan/OneDrive%20-%20Universidad%20Rafael%20Landivar/Documentos/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Lexer.flex</file>
+            <file>file:/C:/Users/Bryan/OneDrive%20-%20Universidad%20Rafael%20Landivar/Documentos/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/Sintax.cup</file>
+            <file>file:/C:/Users/Bryan/OneDrive%20-%20Universidad%20Rafael%20Landivar/Documentos/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/FrmMain.java</file>
+            <file>file:/C:/Users/Bryan/OneDrive%20-%20Universidad%20Rafael%20Landivar/Documentos/NetBeansProjects/Lex_Analyzer/LexicalAnalyzer/src/lexCode/MainClass.java</file>
         </group>
     </open-files>
 </project-private>
