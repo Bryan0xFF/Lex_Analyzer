@@ -1,4 +1,4 @@
-# Analizador Léxico
+# Analizador Sintáctico
 
 - La ruta está configurada dinamicamente para buscar el Lexer.flex dentro del proyecto.
 - Se ejecuta el programa en:
