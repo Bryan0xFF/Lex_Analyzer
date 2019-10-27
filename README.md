@@ -6,7 +6,7 @@
         File root = new File("");
         String path = root.getAbsolutePath();
         path += "/src/lexCode/Lexer.flex";
-        GenLex(path);
+        Generate(path);
 ````
 
 - Al iniciar el programa a correr, esto *solamente* correrá la creación del Lexer.Java, por lo cual se deberá correr
