@@ -43,70 +43,492 @@ StringError = ("'")[^'\r\n]*
 %}
 %%
 ( espacio ) {/*Ignore*/}
-( ADD | EXTERNAL | PROCEDURE | ALL | FETCH | PUBLIC | ALTER | FILE | RAISERROR | REBUILD) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( AND | FILLFACTOR | READ | ANY | FOR | READTEXT | AS | FOREIGN | RECONFIGURE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ASC | FREETEXT | REFERENCES | AUTHORIZATION | FREETEXTTABLE | REPLICATION ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( BACKUP | FROM | RESTORE | BEGIN | FULL | RESTRICT | BETWEEN | FUNCTION | RETURN ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( BREAK | GOTO | REVERT | BROWSE | GRANT |REVOKE | BULK | GROUP | RIGHT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( BY | HAVING | ROLLBACK | CASCADE | HOLDLOCK | ROWCOUNT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CASE | IDENTITY | ROWGUIDCOL | CHECK | IDENTITY_INSERT | RULE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CHECKPOINT | IDENTITYCOL | SAVE | FILEGROWTH ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CLOSE | IF | SCHEMA | CLUSTERED | IN | SECURITYAUDIT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COALESCE | INDEX | SELECT | COLLATE | INNER | SEMANTICKEYPHRASETABLE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COLUMN | INSERT | SEMANTICSIMILARITYDETAILSTABLE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COMMIT | INTERSECT | SEMANTICSIMILARITYTABLE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COMPUTE | INTO | SESSION_USER | CONSTRAINT | IS | SET ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CONTAINS | JOIN | SETUSER | CONTAINSTABLE | KEY | SHUTDOWN ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CONTINUE | KILL | SOME | CONVERT | LEFT | STATISTICS ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CREATE | LIKE | SYSTEM_USER | CROSS | LINENO | TABLE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CURRENT | LOAD | TABLESAMPLE | CURRENT_DATE | MERGE | TEXTSIZE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CURRENT_TIME | NATIONAL | THEN | CURRENT_TIMESTAMP | NOCHECK | TO ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CURRENT_USER | NONCLUSTERED | TOP | CURSOR | NOT | TRAN ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DATABASE | NULL | TRANSACTION | DBCC | NULLIF | TRIGGER ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DEALLOCATE | OF | TRUNCATE | DECLARE | OFF | TRY_CONVERT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DEFAULT | OFFSETS | TSEQUAL | DELETE | ON | UNION | DENY | OPEN | UNIQUE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DESC | OPENDATASOURCE |UNPIVOT | DISK | OPENQUERY | UPDATE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DISTINCT | OPENROWSET | UPDATETEXT | DISTRIBUTED | OPENXML | USE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DOUBLE | OPTION | USER | DROP | OR | VALUES | DUMP | ORDER | VARYING ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ELSE | OUTER | VIEW | END | OVER | WAITFOR | ERRLVL | PERCENT | WHEN ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ESCAPE | PIVOT | WHERE | EXCEPT | PLAN | WHILE | EXEC | PRECISION | WITH ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( EXECUTE | PRIMARY | WITHIN GROUP | EXISTS | PRINT | WRITETEXT | EXIT | PROC ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ABSOLUTE | EXEC | OVERLAPS | ACTION | EXECUTE | PAD | ADA | EXISTS | PARTIAL ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ADD | EXTERNAL | PASCAL | ALL | EXTRACT | POSITION ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ALLOCATE | FALSE | PRECISION | ALTER | FETCH | PREPARE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( AND | FIRST | PRESERVE | ANY | FLOAT | PRIMARY | ARE | FOR | PRIOR ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( AS | FOREIGN | PRIVILEGES | ASC | FORTRAN | PROCEDURE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( ASSERTION | FOUND | PUBLIC | AT | FROM | READ ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( AUTHORIZATION | FULL | REAL | AVG | GET | REFERENCES ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( BEGIN | GLOBAL | RELATIVE | BETWEEN | GO | RESTRICT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( BIT | GOTO | REVOKE | BIT_LENGTH | GRANT | RIGHT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( BOTH | GROUP | ROLLBACK | BY | HAVING | ROWS | CASCADE | HOUR | SCHEMA ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CASCADED | IDENTITY | SCROLL | CASE | IMMEDIATE | SECOND ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CAST | IN | SECTION | CATALOG | INCLUDE | SELECT ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CHAR | INDEX | SESSION | CHAR_LENGTH | INDICATOR | SESSION_USER ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CHARACTER | INITIALLY | SET | CHARACTER_LENGTH | INNER | SIZE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CHECK | INPUT | SMALLINT | CLOSE | INSENSITIVE | SOME ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COALESCE | INSERT | SPACE | COLLATE | INT | SQL ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COLLATION | INTEGER | SQLCA | COLUMN | INTERSECT | SQLCODE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COMMIT | INTERVAL | SQLERROR | CONNECT | INTO | SQLSTATE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CONNECTION | IS | SQLWARNING | CONSTRAINT | ISOLATION | SUBSTRING ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CONSTRAINTS |JOIN | SUM | CONTINUE | KEY | SYSTEM_USER ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CONVERT | LANGUAGE | TABLE | CORRESPONDING | LAST | TEMPORARY ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( COUNT | LEADING | THEN | CREATE | LEFT | TIME | int | float | bit | varchar | integer ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());} 
-( CROSS | LEVEL | TIMESTAMP | CURRENT | LIKE | TIMEZONE_HOUR | Int | Float | Bit | Varchar | Integer ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CURRENT_DATE | LOCAL | TIMEZONE_MINUTE | CURRENT_TIME | LOWER | TO ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CURRENT_TIMESTAMP | MATCH | TRAILING | CURRENT_USER | MAX | TRANSACTION ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( CURSOR | MIN | TRANSLATE | DATE | MINUTE | TRANSLATION ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DAY | MODULE | TRIM | DEALLOCATE | MONTH | TRUE | MAXSIZE | FILENAME ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DEC | NAMES | UNION | DECIMAL | NATIONAL | UNIQUE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DECLARE | NATURAL | UNKNOWN | DEFAULT | NCHAR | UPDATE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DEFERRABLE | NEXT | UPPER | DEFERRED | NO | USAGE | DELETE | NONE | USER ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DESC | NOT | USING | DESCRIBE | NULL | VALUE | DESCRIPTOR | NULLIF | VALUES ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DIAGNOSTICS | NUMERIC | VARCHAR | DISCONNECT | OCTET_LENGTH | VARYING ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DISTINCT | OF | VIEW | DOMAIN | ON | WHEN | DOUBLE | ONLY | WHENEVER ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( DROP | OPEN | WHERE | ELSE | OPTION | WITH | END | OR | WORK ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( END-EXEC | ORDER | WRITE | ESCAPE | OUTER | YEAR | EXCEPT | OUTPUT | ZONE ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
-( EXCEPTION ) {return new Symbol(sym.RESERVADAS, yychar, yyline, yytext());}
+( ABSOLUTE  )  {return new Symbol(sym.ABSOLUTE , yychar, yyline, yytext());}
+( ACTION  )  {return new Symbol(sym.ACTION , yychar, yyline, yytext());}
+( ADA  )  {return new Symbol(sym.ADA , yychar, yyline, yytext());}
+( ADD  )  {return new Symbol(sym.ADD , yychar, yyline, yytext());}
+( ADMIN  )  {return new Symbol(sym.ADMIN , yychar, yyline, yytext());}
+( AFTER  )  {return new Symbol(sym.AFTER , yychar, yyline, yytext());}
+( AGGREGATE  )  {return new Symbol(sym.AGGREGATE , yychar, yyline, yytext());}
+( ALIAS  )  {return new Symbol(sym.ALIAS , yychar, yyline, yytext());}
+( ALL  )  {return new Symbol(sym.ALL , yychar, yyline, yytext());}
+( ALLOCATE  )  {return new Symbol(sym.ALLOCATE , yychar, yyline, yytext());}
+( ALTER  )  {return new Symbol(sym.ALTER , yychar, yyline, yytext());}
+( AND  )  {return new Symbol(sym.AND , yychar, yyline, yytext());}
+( ANY  )  {return new Symbol(sym.ANY , yychar, yyline, yytext());}
+( ARE  )  {return new Symbol(sym.ARE , yychar, yyline, yytext());}
+( ARRAY  )  {return new Symbol(sym.ARRAY , yychar, yyline, yytext());}
+( AS  )  {return new Symbol(sym.AS , yychar, yyline, yytext());}
+( ASC  )  {return new Symbol(sym.ASC , yychar, yyline, yytext());}
+( ASENSITIVE  )  {return new Symbol(sym.ASENSITIVE , yychar, yyline, yytext());}
+( ASSERTION  )  {return new Symbol(sym.ASSERTION , yychar, yyline, yytext());}
+( ASYMMETRIC  )  {return new Symbol(sym.ASYMMETRIC , yychar, yyline, yytext());}
+( AT  )  {return new Symbol(sym.AT , yychar, yyline, yytext());}
+( ATOMIC  )  {return new Symbol(sym.ATOMIC , yychar, yyline, yytext());}
+( AUTHORIZATION  )  {return new Symbol(sym.AUTHORIZATION , yychar, yyline, yytext());}
+( AVG  )  {return new Symbol(sym.AVG , yychar, yyline, yytext());}
+( AVGX  )  {return new Symbol(sym.AVGX , yychar, yyline, yytext());}
+( AVGY  )  {return new Symbol(sym.AVGY , yychar, yyline, yytext());}
+( BACKUP  )  {return new Symbol(sym.BACKUP , yychar, yyline, yytext());}
+( BEFORE  )  {return new Symbol(sym.BEFORE , yychar, yyline, yytext());}
+( BEGIN  )  {return new Symbol(sym.BEGIN , yychar, yyline, yytext());}
+( BETWEEN  )  {return new Symbol(sym.BETWEEN , yychar, yyline, yytext());}
+( BINARY  )  {return new Symbol(sym.BINARY , yychar, yyline, yytext());}
+( bit  )  {return new Symbol(sym.bit , yychar, yyline, yytext());}
+( BIT  )  {return new Symbol(sym.BIT , yychar, yyline, yytext());}
+( BOOLEAN  )  {return new Symbol(sym.BOOLEAN , yychar, yyline, yytext());}
+( BOTH  )  {return new Symbol(sym.BOTH , yychar, yyline, yytext());}
+( BREAK  )  {return new Symbol(sym.BREAK , yychar, yyline, yytext());}
+( BROWSE  )  {return new Symbol(sym.BROWSE , yychar, yyline, yytext());}
+( BUCKET  )  {return new Symbol(sym.BUCKET , yychar, yyline, yytext());}
+( BULK  )  {return new Symbol(sym.BULK , yychar, yyline, yytext());}
+( BY  )  {return new Symbol(sym.BY , yychar, yyline, yytext());}
+( CALL  )  {return new Symbol(sym.CALL , yychar, yyline, yytext());}
+( CALLED  )  {return new Symbol(sym.CALLED , yychar, yyline, yytext());}
+( CARDINALITY  )  {return new Symbol(sym.CARDINALITY , yychar, yyline, yytext());}
+( CASCADE  )  {return new Symbol(sym.CASCADE , yychar, yyline, yytext());}
+( CASCADED  )  {return new Symbol(sym.CASCADED , yychar, yyline, yytext());}
+( CASE  )  {return new Symbol(sym.CASE , yychar, yyline, yytext());}
+( CAST  )  {return new Symbol(sym.CAST , yychar, yyline, yytext());}
+( CATALOG  )  {return new Symbol(sym.CATALOG , yychar, yyline, yytext());}
+( CHAR  )  {return new Symbol(sym.CHAR , yychar, yyline, yytext());}
+( CHARACTER  )  {return new Symbol(sym.CHARACTER , yychar, yyline, yytext());}
+( CHECK  )  {return new Symbol(sym.CHECK , yychar, yyline, yytext());}
+( CHECKPOINT  )  {return new Symbol(sym.CHECKPOINT , yychar, yyline, yytext());}
+( CLASS  )  {return new Symbol(sym.CLASS , yychar, yyline, yytext());}
+( CLOSE  )  {return new Symbol(sym.CLOSE , yychar, yyline, yytext());}
+( CLUSTERED  )  {return new Symbol(sym.CLUSTERED , yychar, yyline, yytext());}
+( COALESCE  )  {return new Symbol(sym.COALESCE , yychar, yyline, yytext());}
+( COLLATE  )  {return new Symbol(sym.COLLATE , yychar, yyline, yytext());}
+( COLLATION  )  {return new Symbol(sym.COLLATION , yychar, yyline, yytext());}
+( COLLECT  )  {return new Symbol(sym.COLLECT , yychar, yyline, yytext());}
+( COLUMN  )  {return new Symbol(sym.COLUMN , yychar, yyline, yytext());}
+( COMMIT  )  {return new Symbol(sym.COMMIT , yychar, yyline, yytext());}
+( COMPLETION  )  {return new Symbol(sym.COMPLETION , yychar, yyline, yytext());}
+( COMPUTE  )  {return new Symbol(sym.COMPUTE , yychar, yyline, yytext());}
+( CONDITION  )  {return new Symbol(sym.CONDITION , yychar, yyline, yytext());}
+( CONNECT  )  {return new Symbol(sym.CONNECT , yychar, yyline, yytext());}
+( CONNECTION  )  {return new Symbol(sym.CONNECTION , yychar, yyline, yytext());}
+( CONSTRAINT  )  {return new Symbol(sym.CONSTRAINT , yychar, yyline, yytext());}
+( CONSTRAINTS  )  {return new Symbol(sym.CONSTRAINTS , yychar, yyline, yytext());}
+( CONSTRUCTOR  )  {return new Symbol(sym.CONSTRUCTOR , yychar, yyline, yytext());}
+( CONTAINS  )  {return new Symbol(sym.CONTAINS , yychar, yyline, yytext());}
+( CONTAINSTABLE  )  {return new Symbol(sym.CONTAINSTABLE , yychar, yyline, yytext());}
+( CONTINUE  )  {return new Symbol(sym.CONTINUE , yychar, yyline, yytext());}
+( CONVERT  )  {return new Symbol(sym.CONVERT , yychar, yyline, yytext());}
+( CORRESPONDING  )  {return new Symbol(sym.CORRESPONDING , yychar, yyline, yytext());}
+( COUNT  )  {return new Symbol(sym.COUNT , yychar, yyline, yytext());}
+( CREATE  )  {return new Symbol(sym.CREATE , yychar, yyline, yytext());}
+( CROSS  )  {return new Symbol(sym.CROSS , yychar, yyline, yytext());}
+( CUBE  )  {return new Symbol(sym.CUBE , yychar, yyline, yytext());}
+( CURRENT  )  {return new Symbol(sym.CURRENT , yychar, yyline, yytext());}
+( CURSOR  )  {return new Symbol(sym.CURSOR , yychar, yyline, yytext());}
+( CYCLE  )  {return new Symbol(sym.CYCLE , yychar, yyline, yytext());}
+( DATA  )  {return new Symbol(sym.DATA , yychar, yyline, yytext());}
+( DATABASE  )  {return new Symbol(sym.DATABASE , yychar, yyline, yytext());}
+( DATE  )  {return new Symbol(sym.DATE , yychar, yyline, yytext());}
+( DAY  )  {return new Symbol(sym.DAY , yychar, yyline, yytext());}
+( DBCC  )  {return new Symbol(sym.DBCC , yychar, yyline, yytext());}
+( DEALLOCATE  )  {return new Symbol(sym.DEALLOCATE , yychar, yyline, yytext());}
+( DEC  )  {return new Symbol(sym.DEC , yychar, yyline, yytext());}
+( DECIMAL  )  {return new Symbol(sym.DECIMAL , yychar, yyline, yytext());}
+( DECLARE  )  {return new Symbol(sym.DECLARE , yychar, yyline, yytext());}
+( DEFAULT  )  {return new Symbol(sym.DEFAULT , yychar, yyline, yytext());}
+( DEFERRABLE  )  {return new Symbol(sym.DEFERRABLE , yychar, yyline, yytext());}
+( DEFERRED  )  {return new Symbol(sym.DEFERRED , yychar, yyline, yytext());}
+( DELETE  )  {return new Symbol(sym.DELETE , yychar, yyline, yytext());}
+( DENY  )  {return new Symbol(sym.DENY , yychar, yyline, yytext());}
+( DEPTH  )  {return new Symbol(sym.DEPTH , yychar, yyline, yytext());}
+( DEREF  )  {return new Symbol(sym.DEREF , yychar, yyline, yytext());}
+( DESC  )  {return new Symbol(sym.DESC , yychar, yyline, yytext());}
+( DESCRIBE  )  {return new Symbol(sym.DESCRIBE , yychar, yyline, yytext());}
+( DESCRIPTOR  )  {return new Symbol(sym.DESCRIPTOR , yychar, yyline, yytext());}
+( DESTROY  )  {return new Symbol(sym.DESTROY , yychar, yyline, yytext());}
+( DESTRUCTOR  )  {return new Symbol(sym.DESTRUCTOR , yychar, yyline, yytext());}
+( DETERMINISTIC  )  {return new Symbol(sym.DETERMINISTIC , yychar, yyline, yytext());}
+( DIAGNOSTICS  )  {return new Symbol(sym.DIAGNOSTICS , yychar, yyline, yytext());}
+( DICTIONARY  )  {return new Symbol(sym.DICTIONARY , yychar, yyline, yytext());}
+( DISCONNECT  )  {return new Symbol(sym.DISCONNECT , yychar, yyline, yytext());}
+( DISK  )  {return new Symbol(sym.DISK , yychar, yyline, yytext());}
+( DISTINCT  )  {return new Symbol(sym.DISTINCT , yychar, yyline, yytext());}
+( DISTRIBUTED  )  {return new Symbol(sym.DISTRIBUTED , yychar, yyline, yytext());}
+( DOMAIN  )  {return new Symbol(sym.DOMAIN , yychar, yyline, yytext());}
+( DOUBLE  )  {return new Symbol(sym.DOUBLE , yychar, yyline, yytext());}
+( DROP  )  {return new Symbol(sym.DROP , yychar, yyline, yytext());}
+( DUMP  )  {return new Symbol(sym.DUMP , yychar, yyline, yytext());}
+( DYNAMIC  )  {return new Symbol(sym.DYNAMIC , yychar, yyline, yytext());}
+( EACH  )  {return new Symbol(sym.EACH , yychar, yyline, yytext());}
+( ELEMENT  )  {return new Symbol(sym.ELEMENT , yychar, yyline, yytext());}
+( ELSE  )  {return new Symbol(sym.ELSE , yychar, yyline, yytext());}
+( END  )  {return new Symbol(sym.END , yychar, yyline, yytext());}
+( EQUALS  )  {return new Symbol(sym.EQUALS , yychar, yyline, yytext());}
+( ERRLVL  )  {return new Symbol(sym.ERRLVL , yychar, yyline, yytext());}
+( ESCAPE  )  {return new Symbol(sym.ESCAPE , yychar, yyline, yytext());}
+( EVERY  )  {return new Symbol(sym.EVERY , yychar, yyline, yytext());}
+( EXCEPT  )  {return new Symbol(sym.EXCEPT , yychar, yyline, yytext());}
+( EXCEPTION  )  {return new Symbol(sym.EXCEPTION , yychar, yyline, yytext());}
+( EXEC  )  {return new Symbol(sym.EXEC , yychar, yyline, yytext());}
+( EXECUTE  )  {return new Symbol(sym.EXECUTE , yychar, yyline, yytext());}
+( EXISTS  )  {return new Symbol(sym.EXISTS , yychar, yyline, yytext());}
+( EXIT  )  {return new Symbol(sym.EXIT , yychar, yyline, yytext());}
+( EXTERNAL  )  {return new Symbol(sym.EXTERNAL , yychar, yyline, yytext());}
+( EXTRACT  )  {return new Symbol(sym.EXTRACT , yychar, yyline, yytext());}
+( FALSE  )  {return new Symbol(sym.FALSE , yychar, yyline, yytext());}
+( FETCH  )  {return new Symbol(sym.FETCH , yychar, yyline, yytext());}
+( FILE  )  {return new Symbol(sym.FILE , yychar, yyline, yytext());}
+( FILLFACTOR  )  {return new Symbol(sym.FILLFACTOR , yychar, yyline, yytext());}
+( FILTER  )  {return new Symbol(sym.FILTER , yychar, yyline, yytext());}
+( FIRST  )  {return new Symbol(sym.FIRST , yychar, yyline, yytext());}
+( FLOAT  )  {return new Symbol(sym.FLOAT , yychar, yyline, yytext());}
+( FOR  )  {return new Symbol(sym.FOR , yychar, yyline, yytext());}
+( FOREIGN  )  {return new Symbol(sym.FOREIGN , yychar, yyline, yytext());}
+( FORTRAN  )  {return new Symbol(sym.FORTRAN , yychar, yyline, yytext());}
+( FOUND  )  {return new Symbol(sym.FOUND , yychar, yyline, yytext());}
+( FREE  )  {return new Symbol(sym.FREE , yychar, yyline, yytext());}
+( FREETEXT  )  {return new Symbol(sym.FREETEXT , yychar, yyline, yytext());}
+( FREETEXTTABLE  )  {return new Symbol(sym.FREETEXTTABLE , yychar, yyline, yytext());}
+( FROM  )  {return new Symbol(sym.FROM , yychar, yyline, yytext());}
+( FULL  )  {return new Symbol(sym.FULL , yychar, yyline, yytext());}
+( FULLTEXTTABLE  )  {return new Symbol(sym.FULLTEXTTABLE , yychar, yyline, yytext());}
+( FUNCTION  )  {return new Symbol(sym.FUNCTION , yychar, yyline, yytext());}
+( FUSION  )  {return new Symbol(sym.FUSION , yychar, yyline, yytext());}
+( GENERAL  )  {return new Symbol(sym.GENERAL , yychar, yyline, yytext());}
+( GET  )  {return new Symbol(sym.GET , yychar, yyline, yytext());}
+( GLOBAL  )  {return new Symbol(sym.GLOBAL , yychar, yyline, yytext());}
+( GO  )  {return new Symbol(sym.GO , yychar, yyline, yytext());}
+( GOTO  )  {return new Symbol(sym.GOTO , yychar, yyline, yytext());}
+( GRANT  )  {return new Symbol(sym.GRANT , yychar, yyline, yytext());}
+( GROUP  )  {return new Symbol(sym.GROUP , yychar, yyline, yytext());}
+( GROUPING  )  {return new Symbol(sym.GROUPING , yychar, yyline, yytext());}
+( HAVING  )  {return new Symbol(sym.HAVING , yychar, yyline, yytext());}
+( HOLD  )  {return new Symbol(sym.HOLD , yychar, yyline, yytext());}
+( HOLDLOCK  )  {return new Symbol(sym.HOLDLOCK , yychar, yyline, yytext());}
+( HOST  )  {return new Symbol(sym.HOST , yychar, yyline, yytext());}
+( HOUR  )  {return new Symbol(sym.HOUR , yychar, yyline, yytext());}
+( IDENTITY  )  {return new Symbol(sym.IDENTITY , yychar, yyline, yytext());}
+( identity  )  {return new Symbol(sym.identity , yychar, yyline, yytext());}
+( IDENTITYCOL  )  {return new Symbol(sym.IDENTITYCOL , yychar, yyline, yytext());}
+( IF  )  {return new Symbol(sym.IF , yychar, yyline, yytext());}
+( IGNORE  )  {return new Symbol(sym.IGNORE , yychar, yyline, yytext());}
+( IMMEDIATE  )  {return new Symbol(sym.IMMEDIATE , yychar, yyline, yytext());}
+( IN  )  {return new Symbol(sym.IN , yychar, yyline, yytext());}
+( INCLUDE  )  {return new Symbol(sym.INCLUDE , yychar, yyline, yytext());}
+( INDEX  )  {return new Symbol(sym.INDEX , yychar, yyline, yytext());}
+( INDICATOR  )  {return new Symbol(sym.INDICATOR , yychar, yyline, yytext());}
+( INITIALIZE  )  {return new Symbol(sym.INITIALIZE , yychar, yyline, yytext());}
+( INITIALLY  )  {return new Symbol(sym.INITIALLY , yychar, yyline, yytext());}
+( INNER  )  {return new Symbol(sym.INNER , yychar, yyline, yytext());}
+( INOUT  )  {return new Symbol(sym.INOUT , yychar, yyline, yytext());}
+( INPUT  )  {return new Symbol(sym.INPUT , yychar, yyline, yytext());}
+( INSENSITIVE  )  {return new Symbol(sym.INSENSITIVE , yychar, yyline, yytext());}
+( INSERT  )  {return new Symbol(sym.INSERT , yychar, yyline, yytext());}
+( INT  )  {return new Symbol(sym.INT , yychar, yyline, yytext());}
+( INTEGER  )  {return new Symbol(sym.INTEGER , yychar, yyline, yytext());}
+( integer  )  {return new Symbol(sym.integer , yychar, yyline, yytext());}
+( INTERCEPT  )  {return new Symbol(sym.INTERCEPT , yychar, yyline, yytext());}
+( INTERSECT  )  {return new Symbol(sym.INTERSECT , yychar, yyline, yytext());}
+( INTERSECTION  )  {return new Symbol(sym.INTERSECTION , yychar, yyline, yytext());}
+( INTERVAL  )  {return new Symbol(sym.INTERVAL , yychar, yyline, yytext());}
+( INTO  )  {return new Symbol(sym.INTO , yychar, yyline, yytext());}
+( IS  )  {return new Symbol(sym.IS , yychar, yyline, yytext());}
+( ISOLATION  )  {return new Symbol(sym.ISOLATION , yychar, yyline, yytext());}
+( ITERATE  )  {return new Symbol(sym.ITERATE , yychar, yyline, yytext());}
+( JOIN  )  {return new Symbol(sym.JOIN , yychar, yyline, yytext());}
+( KEY  )  {return new Symbol(sym.KEY , yychar, yyline, yytext());}
+( KILL  )  {return new Symbol(sym.KILL , yychar, yyline, yytext());}
+( LANGUAGE  )  {return new Symbol(sym.LANGUAGE , yychar, yyline, yytext());}
+( LARGE  )  {return new Symbol(sym.LARGE , yychar, yyline, yytext());}
+( LAST  )  {return new Symbol(sym.LAST , yychar, yyline, yytext());}
+( LATERAL  )  {return new Symbol(sym.LATERAL , yychar, yyline, yytext());}
+( LEADING  )  {return new Symbol(sym.LEADING , yychar, yyline, yytext());}
+( LEFT  )  {return new Symbol(sym.LEFT , yychar, yyline, yytext());}
+( LENGTH  )  {return new Symbol(sym.LENGTH , yychar, yyline, yytext());}
+( LESS  )  {return new Symbol(sym.LESS , yychar, yyline, yytext());}
+( LEVEL  )  {return new Symbol(sym.LEVEL , yychar, yyline, yytext());}
+( LIKE  )  {return new Symbol(sym.LIKE , yychar, yyline, yytext());}
+( LIMIT  )  {return new Symbol(sym.LIMIT , yychar, yyline, yytext());}
+( LINENO  )  {return new Symbol(sym.LINENO , yychar, yyline, yytext());}
+( LOAD  )  {return new Symbol(sym.LOAD , yychar, yyline, yytext());}
+( LOCAL  )  {return new Symbol(sym.LOCAL , yychar, yyline, yytext());}
+( LOCALTIME  )  {return new Symbol(sym.LOCALTIME , yychar, yyline, yytext());}
+( LOCALTIMESTAMP  )  {return new Symbol(sym.LOCALTIMESTAMP , yychar, yyline, yytext());}
+( LOCATOR  )  {return new Symbol(sym.LOCATOR , yychar, yyline, yytext());}
+( LOWER  )  {return new Symbol(sym.LOWER , yychar, yyline, yytext());}
+( MAP  )  {return new Symbol(sym.MAP , yychar, yyline, yytext());}
+( MATCH  )  {return new Symbol(sym.MATCH , yychar, yyline, yytext());}
+( MAX  )  {return new Symbol(sym.MAX , yychar, yyline, yytext());}
+( MEMBER  )  {return new Symbol(sym.MEMBER , yychar, yyline, yytext());}
+( MERGE  )  {return new Symbol(sym.MERGE , yychar, yyline, yytext());}
+( METHOD  )  {return new Symbol(sym.METHOD , yychar, yyline, yytext());}
+( MIN  )  {return new Symbol(sym.MIN , yychar, yyline, yytext());}
+( MINUTE  )  {return new Symbol(sym.MINUTE , yychar, yyline, yytext());}
+( MOD  )  {return new Symbol(sym.MOD , yychar, yyline, yytext());}
+( MODIFIES  )  {return new Symbol(sym.MODIFIES , yychar, yyline, yytext());}
+( MODIFY  )  {return new Symbol(sym.MODIFY , yychar, yyline, yytext());}
+( MODULE  )  {return new Symbol(sym.MODULE , yychar, yyline, yytext());}
+( MONTH  )  {return new Symbol(sym.MONTH , yychar, yyline, yytext());}
+( MULTISET  )  {return new Symbol(sym.MULTISET , yychar, yyline, yytext());}
+( NAMES  )  {return new Symbol(sym.NAMES , yychar, yyline, yytext());}
+( NATIONAL  )  {return new Symbol(sym.NATIONAL , yychar, yyline, yytext());}
+( NATURAL  )  {return new Symbol(sym.NATURAL , yychar, yyline, yytext());}
+( NCHAR  )  {return new Symbol(sym.NCHAR , yychar, yyline, yytext());}
+( NEW  )  {return new Symbol(sym.NEW , yychar, yyline, yytext());}
+( NEXT  )  {return new Symbol(sym.NEXT , yychar, yyline, yytext());}
+( NOT  )  {return new Symbol(sym.NOT , yychar, yyline, yytext());}
+( NOCHECK  )  {return new Symbol(sym.NOCHECK , yychar, yyline, yytext());}
+( NONCLUSTERED  )  {return new Symbol(sym.NONCLUSTERED , yychar, yyline, yytext());}
+( NONE  )  {return new Symbol(sym.NONE , yychar, yyline, yytext());}
+( NORMALIZE  )  {return new Symbol(sym.NORMALIZE , yychar, yyline, yytext());}
+( NOT  )  {return new Symbol(sym.NOT , yychar, yyline, yytext());}
+( NULL  )  {return new Symbol(sym.NULL , yychar, yyline, yytext());}
+( NULLIF  )  {return new Symbol(sym.NULLIF , yychar, yyline, yytext());}
+( NUMERIC  )  {return new Symbol(sym.NUMERIC , yychar, yyline, yytext());}
+( OBJECT  )  {return new Symbol(sym.OBJECT , yychar, yyline, yytext());}
+( OCCURRENCES  )  {return new Symbol(sym.OCCURRENCES , yychar, yyline, yytext());}
+( OCTET  )  {return new Symbol(sym.OCTET , yychar, yyline, yytext());}
+( OF  )  {return new Symbol(sym.OF , yychar, yyline, yytext());}
+( OFF  )  {return new Symbol(sym.OFF , yychar, yyline, yytext());}
+( OFFSETS  )  {return new Symbol(sym.OFFSETS , yychar, yyline, yytext());}
+( OLD  )  {return new Symbol(sym.OLD , yychar, yyline, yytext());}
+( ON  )  {return new Symbol(sym.ON , yychar, yyline, yytext());}
+( ONLY  )  {return new Symbol(sym.ONLY , yychar, yyline, yytext());}
+( OPEN  )  {return new Symbol(sym.OPEN , yychar, yyline, yytext());}
+( OPENDATASOURCE  )  {return new Symbol(sym.OPENDATASOURCE , yychar, yyline, yytext());}
+( OPENQUERY  )  {return new Symbol(sym.OPENQUERY , yychar, yyline, yytext());}
+( OPENROWSET  )  {return new Symbol(sym.OPENROWSET , yychar, yyline, yytext());}
+( OPENXML  )  {return new Symbol(sym.OPENXML , yychar, yyline, yytext());}
+( OPERATION  )  {return new Symbol(sym.OPERATION , yychar, yyline, yytext());}
+( OPTION  )  {return new Symbol(sym.OPTION , yychar, yyline, yytext());}
+( OR  )  {return new Symbol(sym.OR , yychar, yyline, yytext());}
+( ORDER  )  {return new Symbol(sym.ORDER , yychar, yyline, yytext());}
+( ORDINALITY  )  {return new Symbol(sym.ORDINALITY , yychar, yyline, yytext());}
+( OUT  )  {return new Symbol(sym.OUT , yychar, yyline, yytext());}
+( OUTER  )  {return new Symbol(sym.OUTER , yychar, yyline, yytext());}
+( OUTPUT  )  {return new Symbol(sym.OUTPUT , yychar, yyline, yytext());}
+( OVER  )  {return new Symbol(sym.OVER , yychar, yyline, yytext());}
+( OVERLAPS  )  {return new Symbol(sym.OVERLAPS , yychar, yyline, yytext());}
+( OVERLAY  )  {return new Symbol(sym.OVERLAY , yychar, yyline, yytext());}
+( PAD  )  {return new Symbol(sym.PAD , yychar, yyline, yytext());}
+( PARAMETER  )  {return new Symbol(sym.PARAMETER , yychar, yyline, yytext());}
+( PARAMETERS  )  {return new Symbol(sym.PARAMETERS , yychar, yyline, yytext());}
+( PARTIAL  )  {return new Symbol(sym.PARTIAL , yychar, yyline, yytext());}
+( PARTITION  )  {return new Symbol(sym.PARTITION , yychar, yyline, yytext());}
+( PASCAL  )  {return new Symbol(sym.PASCAL , yychar, yyline, yytext());}
+( PATH  )  {return new Symbol(sym.PATH , yychar, yyline, yytext());}
+( PERCENT  )  {return new Symbol(sym.PERCENT , yychar, yyline, yytext());}
+( PERCENTILE  )  {return new Symbol(sym.PERCENTILE , yychar, yyline, yytext());}
+( PIVOT  )  {return new Symbol(sym.PIVOT , yychar, yyline, yytext());}
+( PLAN  )  {return new Symbol(sym.PLAN , yychar, yyline, yytext());}
+( POP  )  {return new Symbol(sym.POP , yychar, yyline, yytext());}
+( POSITION  )  {return new Symbol(sym.POSITION , yychar, yyline, yytext());}
+( POSTFIX  )  {return new Symbol(sym.POSTFIX , yychar, yyline, yytext());}
+( PRECISION  )  {return new Symbol(sym.PRECISION , yychar, yyline, yytext());}
+( PREFIX  )  {return new Symbol(sym.PREFIX , yychar, yyline, yytext());}
+( PREORDER  )  {return new Symbol(sym.PREORDER , yychar, yyline, yytext());}
+( PREPARE  )  {return new Symbol(sym.PREPARE , yychar, yyline, yytext());}
+( PRESERVE  )  {return new Symbol(sym.PRESERVE , yychar, yyline, yytext());}
+( PRIMARY  )  {return new Symbol(sym.PRIMARY , yychar, yyline, yytext());}
+( PRINT  )  {return new Symbol(sym.PRINT , yychar, yyline, yytext());}
+( PRIOR  )  {return new Symbol(sym.PRIOR , yychar, yyline, yytext());}
+( PRIVILEGES  )  {return new Symbol(sym.PRIVILEGES , yychar, yyline, yytext());}
+( PROC  )  {return new Symbol(sym.PROC , yychar, yyline, yytext());}
+( PROCEDURE  )  {return new Symbol(sym.PROCEDURE , yychar, yyline, yytext());}
+( PUBLIC  )  {return new Symbol(sym.PUBLIC , yychar, yyline, yytext());}
+( RAISERROR  )  {return new Symbol(sym.RAISERROR , yychar, yyline, yytext());}
+( RANGE  )  {return new Symbol(sym.RANGE , yychar, yyline, yytext());}
+( RANK  )  {return new Symbol(sym.RANK , yychar, yyline, yytext());}
+( READ  )  {return new Symbol(sym.READ , yychar, yyline, yytext());}
+( READS  )  {return new Symbol(sym.READS , yychar, yyline, yytext());}
+( READTEXT  )  {return new Symbol(sym.READTEXT , yychar, yyline, yytext());}
+( REAL  )  {return new Symbol(sym.REAL , yychar, yyline, yytext());}
+( RECONFIGURE  )  {return new Symbol(sym.RECONFIGURE , yychar, yyline, yytext());}
+( RECURSIVE  )  {return new Symbol(sym.RECURSIVE , yychar, yyline, yytext());}
+( REF  )  {return new Symbol(sym.REF , yychar, yyline, yytext());}
+( REFERENCES  )  {return new Symbol(sym.REFERENCES , yychar, yyline, yytext());}
+( REFERENCING  )  {return new Symbol(sym.REFERENCING , yychar, yyline, yytext());}
+( REGEX  )  {return new Symbol(sym.REGEX , yychar, yyline, yytext());}
+( RELATIVE  )  {return new Symbol(sym.RELATIVE , yychar, yyline, yytext());}
+( RELEASE  )  {return new Symbol(sym.RELEASE , yychar, yyline, yytext());}
+( REPLICATION  )  {return new Symbol(sym.REPLICATION , yychar, yyline, yytext());}
+( RESTORE  )  {return new Symbol(sym.RESTORE , yychar, yyline, yytext());}
+( RESTRICT  )  {return new Symbol(sym.RESTRICT , yychar, yyline, yytext());}
+( RESULT  )  {return new Symbol(sym.RESULT , yychar, yyline, yytext());}
+( RETURN  )  {return new Symbol(sym.RETURN , yychar, yyline, yytext());}
+( RETURNS  )  {return new Symbol(sym.RETURNS , yychar, yyline, yytext());}
+( REVERT  )  {return new Symbol(sym.REVERT , yychar, yyline, yytext());}
+( REVOKE  )  {return new Symbol(sym.REVOKE , yychar, yyline, yytext());}
+( RIGHT  )  {return new Symbol(sym.RIGHT , yychar, yyline, yytext());}
+( ROLE  )  {return new Symbol(sym.ROLE , yychar, yyline, yytext());}
+( ROLLBACK  )  {return new Symbol(sym.ROLLBACK , yychar, yyline, yytext());}
+( ROLLUP  )  {return new Symbol(sym.ROLLUP , yychar, yyline, yytext());}
+( ROUTINE  )  {return new Symbol(sym.ROUTINE , yychar, yyline, yytext());}
+( ROW  )  {return new Symbol(sym.ROW , yychar, yyline, yytext());}
+( ROWCOUNT  )  {return new Symbol(sym.ROWCOUNT , yychar, yyline, yytext());}
+( ROWGUIDCOL  )  {return new Symbol(sym.ROWGUIDCOL , yychar, yyline, yytext());}
+( ROWS  )  {return new Symbol(sym.ROWS , yychar, yyline, yytext());}
+( RULE  )  {return new Symbol(sym.RULE , yychar, yyline, yytext());}
+( SAVE  )  {return new Symbol(sym.SAVE , yychar, yyline, yytext());}
+( SAVEPOINT  )  {return new Symbol(sym.SAVEPOINT , yychar, yyline, yytext());}
+( SCHEMA  )  {return new Symbol(sym.SCHEMA , yychar, yyline, yytext());}
+( SCOPE  )  {return new Symbol(sym.SCOPE , yychar, yyline, yytext());}
+( SCROLL  )  {return new Symbol(sym.SCROLL , yychar, yyline, yytext());}
+( SEARCH  )  {return new Symbol(sym.SEARCH , yychar, yyline, yytext());}
+( SECOND  )  {return new Symbol(sym.SECOND , yychar, yyline, yytext());}
+( SECTION  )  {return new Symbol(sym.SECTION , yychar, yyline, yytext());}
+( SECURITYAUDIT  )  {return new Symbol(sym.SECURITYAUDIT , yychar, yyline, yytext());}
+( SELECT  )  {return new Symbol(sym.SELECT , yychar, yyline, yytext());}
+( SEMANTICKEYPHRASETABLE  )  {return new Symbol(sym.SEMANTICKEYPHRASETABLE , yychar, yyline, yytext());}
+( SEMANTICSIMILARITYDETAILSTABLE  )  {return new Symbol(sym.SEMANTICSIMILARITYDETAILSTABLE , yychar, yyline, yytext());}
+( SEMANTICSIMILARITYTABLE  )  {return new Symbol(sym.SEMANTICSIMILARITYTABLE , yychar, yyline, yytext());}
+( SENSITIVE  )  {return new Symbol(sym.SENSITIVE , yychar, yyline, yytext());}
+( SEQUENCE  )  {return new Symbol(sym.SEQUENCE , yychar, yyline, yytext());}
+( SESSION  )  {return new Symbol(sym.SESSION , yychar, yyline, yytext());}
+( SET  )  {return new Symbol(sym.SET , yychar, yyline, yytext());}
+( SETS  )  {return new Symbol(sym.SETS , yychar, yyline, yytext());}
+( SETUSER  )  {return new Symbol(sym.SETUSER , yychar, yyline, yytext());}
+( SHUTDOWN  )  {return new Symbol(sym.SHUTDOWN , yychar, yyline, yytext());}
+( SIMILAR  )  {return new Symbol(sym.SIMILAR , yychar, yyline, yytext());}
+( SIZE  )  {return new Symbol(sym.SIZE , yychar, yyline, yytext());}
+( SLOPE  )  {return new Symbol(sym.SLOPE , yychar, yyline, yytext());}
+( SMALLINT  )  {return new Symbol(sym.SMALLINT , yychar, yyline, yytext());}
+( SOME  )  {return new Symbol(sym.SOME , yychar, yyline, yytext());}
+( SPACE  )  {return new Symbol(sym.SPACE , yychar, yyline, yytext());}
+( SPECIFIC  )  {return new Symbol(sym.SPECIFIC , yychar, yyline, yytext());}
+( SPECIFICTYPE  )  {return new Symbol(sym.SPECIFICTYPE , yychar, yyline, yytext());}
+( SQL  )  {return new Symbol(sym.SQL , yychar, yyline, yytext());}
+( SQLCA  )  {return new Symbol(sym.SQLCA , yychar, yyline, yytext());}
+( SQLCODE  )  {return new Symbol(sym.SQLCODE , yychar, yyline, yytext());}
+( SQLERROR  )  {return new Symbol(sym.SQLERROR , yychar, yyline, yytext());}
+( SQLEXCEPTION  )  {return new Symbol(sym.SQLEXCEPTION , yychar, yyline, yytext());}
+( SQLSTATE  )  {return new Symbol(sym.SQLSTATE , yychar, yyline, yytext());}
+( SQLWARNING  )  {return new Symbol(sym.SQLWARNING , yychar, yyline, yytext());}
+( START  )  {return new Symbol(sym.START , yychar, yyline, yytext());}
+( STATE  )  {return new Symbol(sym.STATE , yychar, yyline, yytext());}
+( STATEMENT  )  {return new Symbol(sym.STATEMENT , yychar, yyline, yytext());}
+( STATIC  )  {return new Symbol(sym.STATIC , yychar, yyline, yytext());}
+( STATISTICS  )  {return new Symbol(sym.STATISTICS , yychar, yyline, yytext());}
+( STDDEV  )  {return new Symbol(sym.STDDEV , yychar, yyline, yytext());}
+( STRUCTURE  )  {return new Symbol(sym.STRUCTURE , yychar, yyline, yytext());}
+( SUBMULTISET  )  {return new Symbol(sym.SUBMULTISET , yychar, yyline, yytext());}
+( SUBSTRING  )  {return new Symbol(sym.SUBSTRING , yychar, yyline, yytext());}
+( SUM  )  {return new Symbol(sym.SUM , yychar, yyline, yytext());}
+( SYMMETRIC  )  {return new Symbol(sym.SYMMETRIC , yychar, yyline, yytext());}
+( SYSTEM  )  {return new Symbol(sym.SYSTEM , yychar, yyline, yytext());}
+( TABLE  )  {return new Symbol(sym.TABLE , yychar, yyline, yytext());}
+( TABLESAMPLE  )  {return new Symbol(sym.TABLESAMPLE , yychar, yyline, yytext());}
+( TEMPORARY  )  {return new Symbol(sym.TEMPORARY , yychar, yyline, yytext());}
+( TERMINATE  )  {return new Symbol(sym.TERMINATE , yychar, yyline, yytext());}
+( TEXTSIZE  )  {return new Symbol(sym.TEXTSIZE , yychar, yyline, yytext());}
+( THAN  )  {return new Symbol(sym.THAN , yychar, yyline, yytext());}
+( THEN  )  {return new Symbol(sym.THEN , yychar, yyline, yytext());}
+( TIME  )  {return new Symbol(sym.TIME , yychar, yyline, yytext());}
+( TIMESTAMP  )  {return new Symbol(sym.TIMESTAMP , yychar, yyline, yytext());}
+( TIMEZONE  )  {return new Symbol(sym.TIMEZONE , yychar, yyline, yytext());}
+( TO  )  {return new Symbol(sym.TO , yychar, yyline, yytext());}
+( TOP  )  {return new Symbol(sym.TOP , yychar, yyline, yytext());}
+( TRAILING  )  {return new Symbol(sym.TRAILING , yychar, yyline, yytext());}
+( TRAN  )  {return new Symbol(sym.TRAN , yychar, yyline, yytext());}
+( TRANSACTION  )  {return new Symbol(sym.TRANSACTION , yychar, yyline, yytext());}
+( TRANSFORM  )  {return new Symbol(sym.TRANSFORM , yychar, yyline, yytext());}
+( TRANSLATE  )  {return new Symbol(sym.TRANSLATE , yychar, yyline, yytext());}
+( TRANSLATION  )  {return new Symbol(sym.TRANSLATION , yychar, yyline, yytext());}
+( TREAT  )  {return new Symbol(sym.TREAT , yychar, yyline, yytext());}
+( TRIGGER  )  {return new Symbol(sym.TRIGGER , yychar, yyline, yytext());}
+( TRIM  )  {return new Symbol(sym.TRIM , yychar, yyline, yytext());}
+( TRUE  )  {return new Symbol(sym.TRUE , yychar, yyline, yytext());}
+( TRUNCATE  )  {return new Symbol(sym.TRUNCATE , yychar, yyline, yytext());}
+( TRY  )  {return new Symbol(sym.TRY , yychar, yyline, yytext());}
+( TSEQUAL  )  {return new Symbol(sym.TSEQUAL , yychar, yyline, yytext());}
+( TYPE  )  {return new Symbol(sym.TYPE , yychar, yyline, yytext());}
+( UESCAPE  )  {return new Symbol(sym.UESCAPE , yychar, yyline, yytext());}
+( UNDER  )  {return new Symbol(sym.UNDER , yychar, yyline, yytext());}
+( UNION  )  {return new Symbol(sym.UNION , yychar, yyline, yytext());}
+( UNIQUE  )  {return new Symbol(sym.UNIQUE , yychar, yyline, yytext());}
+( UNKNOWN  )  {return new Symbol(sym.UNKNOWN , yychar, yyline, yytext());}
+( UNNEST  )  {return new Symbol(sym.UNNEST , yychar, yyline, yytext());}
+( UNPIVOT  )  {return new Symbol(sym.UNPIVOT , yychar, yyline, yytext());}
+( UPDATE  )  {return new Symbol(sym.UPDATE , yychar, yyline, yytext());}
+( UPDATETEXT  )  {return new Symbol(sym.UPDATETEXT , yychar, yyline, yytext());}
+( UPPER  )  {return new Symbol(sym.UPPER , yychar, yyline, yytext());}
+( USAGE  )  {return new Symbol(sym.USAGE , yychar, yyline, yytext());}
+( USE  )  {return new Symbol(sym.USE , yychar, yyline, yytext());}
+( USER  )  {return new Symbol(sym.USER , yychar, yyline, yytext());}
+( USING  )  {return new Symbol(sym.USING , yychar, yyline, yytext());}
+( VALUE  )  {return new Symbol(sym.VALUE , yychar, yyline, yytext());}
+( VALUES  )  {return new Symbol(sym.VALUES , yychar, yyline, yytext());}
+( VAR  )  {return new Symbol(sym.VAR , yychar, yyline, yytext());}
+( VARCHAR  )  {return new Symbol(sym.VARCHAR , yychar, yyline, yytext());}
+( varchar  )  {return new Symbol(sym.varchar , yychar, yyline, yytext());}
+( VARIABLE  )  {return new Symbol(sym.VARIABLE , yychar, yyline, yytext());}
+( VARYING  )  {return new Symbol(sym.VARYING , yychar, yyline, yytext());}
+( VIEW  )  {return new Symbol(sym.VIEW , yychar, yyline, yytext());}
+( WAITFOR  )  {return new Symbol(sym.WAITFOR , yychar, yyline, yytext());}
+( WHEN  )  {return new Symbol(sym.WHEN , yychar, yyline, yytext());}
+( WHENEVER  )  {return new Symbol(sym.WHENEVER , yychar, yyline, yytext());}
+( WHERE  )  {return new Symbol(sym.WHERE , yychar, yyline, yytext());}
+( WHILE  )  {return new Symbol(sym.WHILE , yychar, yyline, yytext());}
+( WIDTH  )  {return new Symbol(sym.WIDTH , yychar, yyline, yytext());}
+( WINDOW  )  {return new Symbol(sym.WINDOW , yychar, yyline, yytext());}
+( WITH  )  {return new Symbol(sym.WITH , yychar, yyline, yytext());}
+( WITHIN  )  {return new Symbol(sym.WITHIN , yychar, yyline, yytext());}
+( WITHOUT  )  {return new Symbol(sym.WITHOUT , yychar, yyline, yytext());}
+( WORK  )  {return new Symbol(sym.WORK , yychar, yyline, yytext());}
+( WRITE  )  {return new Symbol(sym.WRITE , yychar, yyline, yytext());}
+( WRITETEXT  )  {return new Symbol(sym.WRITETEXT , yychar, yyline, yytext());}
+( XMLAGG  )  {return new Symbol(sym.XMLAGG , yychar, yyline, yytext());}
+( XMLATTRIBUTES  )  {return new Symbol(sym.XMLATTRIBUTES , yychar, yyline, yytext());}
+( XMLBINARY  )  {return new Symbol(sym.XMLBINARY , yychar, yyline, yytext());}
+( XMLCAST  )  {return new Symbol(sym.XMLCAST , yychar, yyline, yytext());}
+( XMLCOMMENT  )  {return new Symbol(sym.XMLCOMMENT , yychar, yyline, yytext());}
+( XMLCONCAT  )  {return new Symbol(sym.XMLCONCAT , yychar, yyline, yytext());}
+( XMLDOCUMENT  )  {return new Symbol(sym.XMLDOCUMENT , yychar, yyline, yytext());}
+( XMLELEMENT  )  {return new Symbol(sym.XMLELEMENT , yychar, yyline, yytext());}
+( XMLEXISTS  )  {return new Symbol(sym.XMLEXISTS , yychar, yyline, yytext());}
+( XMLFOREST  )  {return new Symbol(sym.XMLFOREST , yychar, yyline, yytext());}
+( XMLITERATE  )  {return new Symbol(sym.XMLITERATE , yychar, yyline, yytext());}
+( XMLNAMESPACES  )  {return new Symbol(sym.XMLNAMESPACES , yychar, yyline, yytext());}
+( XMLPARSE  )  {return new Symbol(sym.XMLPARSE , yychar, yyline, yytext());}
+( XMLPI  )  {return new Symbol(sym.XMLPI , yychar, yyline, yytext());}
+( XMLQUERY  )  {return new Symbol(sym.XMLQUERY , yychar, yyline, yytext());}
+( XMLSERIALIZE  )  {return new Symbol(sym.XMLSERIALIZE , yychar, yyline, yytext());}
+( XMLTABLE  )  {return new Symbol(sym.XMLTABLE , yychar, yyline, yytext());}
+( XMLTEXT  )  {return new Symbol(sym.XMLTEXT , yychar, yyline, yytext());}
+( XMLVALIDATE  )  {return new Symbol(sym.XMLVALIDATE , yychar, yyline, yytext());}
+( YEAR  )  {return new Symbol(sym.YEAR , yychar, yyline, yytext());}
+( YEAR  )  {return new Symbol(sym.YEAR , yychar, yyline, yytext());}
+( ZONE  )  {return new Symbol(sym.ZONE , yychar, yyline, yytext());}
+( "="  )  {return new Symbol(sym.Igual, yychar, yyline, yytext());}
+( "+"  )  {return new Symbol(sym.Mas, yychar, yyline, yytext());}
+( "-"  )  {return new Symbol(sym.Menos, yychar, yyline, yytext());}
+( "*"  )  {return new Symbol(sym.Asterisco, yychar, yyline, yytext());}
+( "/"  )  {return new Symbol(sym.Slash, yychar, yyline, yytext());}
+( "%"  )  {return new Symbol(sym.Porcentaje, yychar, yyline, yytext());}
+( "<"  )  {return new Symbol(sym.Menor, yychar, yyline, yytext());}
+( "<="  )  {return new Symbol(sym.MenorIgual, yychar, yyline, yytext());}
+( ">"  )  {return new Symbol(sym.Mayor, yychar, yyline, yytext());}
+( ">="  )  {return new Symbol(sym.MayorIgual, yychar, yyline, yytext());}
+( "=="  )  {return new Symbol(sym.IgualComparador, yychar, yyline, yytext());}
+( "!="  )  {return new Symbol(sym.NotIgual, yychar, yyline, yytext());}
+( "&&"  )  {return new Symbol(sym.And, yychar, yyline, yytext());}
+( "||"  )  {return new Symbol(sym.Or, yychar, yyline, yytext());}
+( "!"  )  {return new Symbol(sym.Not, yychar, yyline, yytext());}
+( ";"  )  {return new Symbol(sym.PuntoYComa, yychar, yyline, yytext());}
+( "."  )  {return new Symbol(sym.Punto, yychar, yyline, yytext());}
+( "["  )  {return new Symbol(sym.CorcheteAbre, yychar, yyline, yytext());}
+( "]"  )  {return new Symbol(sym.CorcheteCierre, yychar, yyline, yytext());}
+( "("  )  {return new Symbol(sym.parentesisAbre, yychar, yyline, yytext());}
+( ")"  )  {return new Symbol(sym.ParentesisCierre, yychar, yyline, yytext());}
+( "}"  )  {return new Symbol(sym.LlaveCierre, yychar, yyline, yytext());}
+( "[]"  )  {return new Symbol(sym.Corchetes, yychar, yyline, yytext());}
+( "()"  )  {return new Symbol(sym.Parentesis, yychar, yyline, yytext());}
+( "@"  )  {return new Symbol(sym.Arroba, yychar, yyline, yytext());}
+( "#"  )  {return new Symbol(sym.Tag, yychar, yyline, yytext());}
+( "##"  )  {return new Symbol(sym.TagDoble, yychar, yyline, yytext());}
+( "\""  )  {return new Symbol(sym.ComillaDoble, yychar, yyline, yytext());}
+( "\'"  )  {return new Symbol(sym.ComillaSimple, yychar, yyline, yytext());}
+( ","  )  {return new Symbol(sym.Coma, yychar, yyline, yytext());}
+("{}" ) {return new Symbol(sym.Lllaves, yychar, yyline, yytext());}
+("{" ) {return new Symbol(sym.LlaveAbre, yychar, yyline, yytext());}
 ( Identificador ) {return new Symbol(sym.IDENTIFICADORES, yychar, yyline, yytext());}
 ( Bit ) {return new Symbol(sym.BIT, yychar, yyline, yytext());}
 ( Digito ) {return new Symbol(sym.INT, yychar, yyline, yytext());}
