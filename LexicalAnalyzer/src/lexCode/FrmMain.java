@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,10 +47,9 @@ public class FrmMain extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaSintax = new javax.swing.JTextArea();
-        btnSintax = new javax.swing.JButton();
         btnAnalizar1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaOutput1 = new javax.swing.JTextArea();
+        txtAreaOutput = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,106 +57,196 @@ public class FrmMain extends javax.swing.JFrame {
         txtAreaSintax.setRows(5);
         jScrollPane1.setViewportView(txtAreaSintax);
 
-        btnSintax.setText("Análisis Sintáctico");
-        btnSintax.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSintaxActionPerformed(evt);
-            }
-        });
-
-        btnAnalizar1.setText("Análisis Léxico");
+        btnAnalizar1.setText("Análisis Léxico y Sintáctico");
         btnAnalizar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnalizar1ActionPerformed(evt);
             }
         });
 
-        txtAreaOutput1.setColumns(20);
-        txtAreaOutput1.setRows(5);
-        jScrollPane2.setViewportView(txtAreaOutput1);
+        txtAreaOutput.setColumns(20);
+        txtAreaOutput.setRows(5);
+        jScrollPane2.setViewportView(txtAreaOutput);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(426, 426, 426)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSintax, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addComponent(btnAnalizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(28, 28, 28)
-                    .addComponent(btnAnalizar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(531, 531, 531)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(521, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(btnSintax, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAnalizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(245, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(btnAnalizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(601, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(245, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSintaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSintaxActionPerformed
+    private void btnAnalizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizar1ActionPerformed
         // TODO add your handling code here:
         File archive = new File("Archivo.out");
         JFileChooser jf = new JFileChooser();
         String path = "";
-        ArrayList<String> Statements = new ArrayList<String>();
-        try{
-           FileWriter fw = new FileWriter(archive); 
-           BufferedWriter bw = new BufferedWriter(fw);
         
-          
-        if (jf.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+        
+       
+        File archivo = new File(path);
+         if (jf.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            try {
+                 txtAreaOutput.setText("");
+                 path = jf.getSelectedFile().getAbsolutePath();
+            // TODO add your handling code here:
+            Reader escanear = new BufferedReader(new FileReader(path));
+            LexerLex lexer = new LexerLex(escanear);
+            ArrayList<String> ListadoDeSentencias = new ArrayList();
+            String sentencia = "";
+            String erroresL = "";
+            String erroresS = "";
+            int LineaActual = 1;
             
-            path = jf.getSelectedFile().getAbsolutePath();
-            File archivo = new File(path);
-            
-            String ST = new String(Files.readAllBytes(archivo.toPath()));
-           //txtAreaSintax.setText(ST);
-            
-            //Sintax s = new Sintax(new lexCode.Lexer(new StringReader(ST)));
-            
-            
-            try{
+            while (true) {
+            Tokens token = lexer.yylex();
+                if (token == null) {
+                    String Comprobar = sentencia.replaceAll("\n", "");
+                    if (!Comprobar.equals("")) {
+                        sentencia += ";";
+                        ListadoDeSentencias.add(sentencia);
+                    }
+                    break;                                     
+                }
                 
-                txtAreaSintax.setText("Analisis realizado Correctamente");
-            }catch(Exception ex){
-                txtAreaSintax.setText(ex.toString());
-                //txtAreaSintax.setText("Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: " + sym.value);
+                int diferencia = lexer.linea - LineaActual;
+                for (int i = 0; i < diferencia; i++) {
+                    sentencia+= "\n";
+                }
+                LineaActual+= diferencia;
+                //seleccionar el tipo de Token
+                switch (token) {
+                    //No necesito saber su valor
+                     case Float: case Bit: case Int:  case String:
+                        sentencia+=token + " ";
+                        break;
+                    //No necesito hacer nada con ellos en el análisis sintáctico
+                    case COMMENT: case MULTICOMMENT:
+                        break;
+                        
+                    case IDENTIFICADORES:
+                        if (lexer.yylength() > 31) {
+                            String TokenTruncado = lexer.lexeme.substring(0, 31);
+                            erroresL+= "ALERTA: Indentificador Truncado|Valor: " + TokenTruncado + "|Linea: " + lexer.linea
+                            + "|Columna Inicio: " + lexer.PrimeraColumna + "|Columna Fin: " + lexer.UltimaColumna + "\n";
+                        }
+                        sentencia+=token + " ";
+                        break;
+                    //Aquí si necesito el valor específico del token
+                    case SIMBOLO: case RESERVADAS:
+                        if (lexer.lexeme.equals("GO")||lexer.lexeme.equals(";")) {
+                            String Comprobar = sentencia.replaceAll("\n", "");
+                            if (!Comprobar.equals("")) {
+                                sentencia+=lexer.lexeme;
+                                String nuevaSentencia = sentencia;
+                                ListadoDeSentencias.add(nuevaSentencia);
+                                sentencia = "";
+                            }                           
+                        }
+                        else{
+                          sentencia+=lexer.lexeme + " ";
+                        }
+                        break;
+                    
+                    //Aún no sé si hacerlos parte del análisis sintáctico                    
+                    case STRINGERROR:
+                        sentencia+="ERROR ";                        
+                        erroresL+= "STRING ERROR: Falta <'> o se encontró un salto de linea|Valor: " + lexer.lexeme + "|Linea: " + lexer.linea
+                                  + "|Columna Inicio: " + lexer.PrimeraColumna + "|Columna Fin: " + lexer.UltimaColumna + "\n";
+                        break;                                                                
+                    case ERROR:
+                        sentencia+=token + " ";
+                        erroresL+= "ERROR: cadena no reconocida|Valor: "+lexer.lexeme+"|Linea: "+lexer.linea
+                                +"|Columna Inicio: "+lexer.PrimeraColumna+"|Columna Fin: "+lexer.UltimaColumna+"\n";
+                        break;
+                    default:
+                        throw new AssertionError();
+                        
+                    //Sólo avisar del error léxico pero no lo necesito en el sintáctico
+                    case ERRORCOMMENT:
+                        sentencia+="ERROR "; 
+                        erroresL+= "ERROR: Comentario Multilinea sin cerrar|Linea Inicial: " + lexer.linea+"\n";
+                        break;
+                }
+            }
+            //COMIENZA EL ANÁLISIS SINTÁCTICO                   
+            int i = 0;
+            int UltimaLinea = 1;
+            while(i<ListadoDeSentencias.size()){
+                String SentenciaActual = ListadoDeSentencias.get(i);                                
+                boolean HayError = false;
+                if (SentenciaActual.contains("ERROR")) {
+                    HayError = true;
+                }
+                if (!HayError) {
+                    //Mandar a JCUP
+                    Sintax s = new Sintax(new lexCode.Lexer(new StringReader(SentenciaActual))); 
+                    try {
+                        s.parse();
+                    } catch (Exception ex) {
+                        Symbol sym = s.getSymbol();
+                        erroresS += "\nERROR: no se esperaba <"+sym.value+">. Line:  "+(UltimaLinea+sym.right)+". Column:  "+(sym.left);
+                    }
+                }
+                
+      //Me sirve únicamente para mostar correctamente la línea de error
+      //pues mandaré statement por statement a JCUP y este devolverá una línea
+      //la cual será sumada a la "UltimaLinea" que hace referencia a la linea
+      //donde terminó el último statement, sin importar si se parseó correctamente
+      //o si no se mandó a analizar
+                String Separar = SentenciaActual.replaceAll("\n", " \n ");            
+                String Revisar [] = Separar.split(" ");                               
+                int Contador = 0;                                                     
+                for (String Revisar1 : Revisar) {                                     
+                    if (Revisar1.equals("\n")) {                                      
+                        Contador++;                                                   
+                    }                                                                 
+                }                                                                     
+                UltimaLinea += Contador;                                              
+                
+                i++;
+            }            
+            if (erroresS.equals("") && erroresL.equals("")) {
+                JOptionPane.showMessageDialog(null,"Se parseó correctamente");
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Se parseó con errores");
+                txtAreaOutput.setText("LEXICAL ERRORS: \n"+erroresL +"\n\n SINTAX ERROR(S):"+erroresS);
             }
             
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }//GEN-LAST:event_btnSintaxActionPerformed
-
-    private void btnAnalizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizar1ActionPerformed
-        // TODO add your handling code here:
+    }
+    else{
+        txtAreaOutput.setText("ALERTA: No se ha seleccionado un Archivo aún");
+    }
+        
     }//GEN-LAST:event_btnAnalizar1ActionPerformed
 
     /**
@@ -199,10 +290,9 @@ public class FrmMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnalizar1;
-    private javax.swing.JButton btnSintax;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txtAreaOutput1;
+    private javax.swing.JTextArea txtAreaOutput;
     private javax.swing.JTextArea txtAreaSintax;
     // End of variables declaration//GEN-END:variables
 }

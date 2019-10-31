@@ -20,15 +20,20 @@ public class MainClass {
         String path = "C:\\Users\\Bryan\\OneDrive - Universidad Rafael Landivar\\Documentos\\NetBeansProjects\\Lex_Analyzer\\LexicalAnalyzer\\src\\lexCode\\Sintax.cup";
         String[] rutaS = {"-parser","Sintax", path};
         path = root.getAbsolutePath() + "/src/lexCode/Lexer.flex";
-        Generate(path, rutaS);
+        
+        String pathLex = root.getAbsolutePath() + "/src/lexCode/LexerLex.flex";
+        Generate(path, rutaS, pathLex);
     }
     
-    public static void Generate(String ruta, String[] sintax) throws IOException, Exception{
+    public static void Generate(String ruta, String[] sintax, String pathLex) throws IOException, Exception{
         /*File archivo = new File(ruta);
         jflex.Main.generate(archivo);*/
         File archivo = new File(ruta);
         jflex.Main.generate(archivo);
         java_cup.Main.main(sintax);
+        
+        File archivo2 = new File(pathLex);
+        jflex.Main.generate(archivo2);
         
         File root = new File("");
         

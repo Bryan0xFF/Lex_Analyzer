@@ -14,10 +14,10 @@ public enum Tokens {
     OPERADORES,
     RESERVADAS,
     IDENTIFICADORES,
-    INT,
-    FLOAT,
-    BIT,
-    STRING,
+    Int,
+    Float,
+    Bit,
+    String,
     ERROR,
     COMMENT,
     SINGLECOMMENT,
@@ -27,5 +27,6 @@ public enum Tokens {
     STRINGERROR,
     FLOATERROR,
     SIMBOLO
+    
     
 }
