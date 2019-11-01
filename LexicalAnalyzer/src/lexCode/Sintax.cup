@@ -17,9 +17,10 @@ parser code
 terminal Truncate, Go, Id, Int, Float, Bit, String, Punto, If, Exists,Add, Primary, espacio,
     Coma, Punto_Coma, Negar, Drop, Database, Index, View, User, Table, On, Of,
     Alter, Column, Collate, Rebuild, Constraint, Parentesis_a, Parentesis_c, Nonclustered, Asc, Desc, Foreign, Key, References, Null, Not, Unique,
-    INT, FLOAT, BIT, VARCHAR, NVARCHAR, Begin, End, Commit, Save, Rollback, Tran, Transaction, Arroba, Insert, Into, Values, Select, Top, Percent,
+    INT, FLOAT, BIT, Begin, End, Commit, Save, Rollback, Tran, Transaction, Arroba, Insert, Into, Values, Select, Top, Percent,
     Asterisco, As, All, Distinct, Corchete_a, Corchete_c, Count, Avg, Max, Min, Sum, From, Join, Inner, Outer, Left, Right, Full, Igual, Group,
-    By, Having, MayorQue, MenorQue, MayorIgual, MenorIgual, And, Or, Order;
+    By, Having, MayorQue, MenorQue, MayorIgual, MenorIgual, And, Or, Order, Create, Proc, Procedure, Out, Output, VARCHAR, Function, Returns, Return,
+    Declare, Cursor, Scroll, For,Read, Only, Update;
 
 non terminal  INICIO, SENTENCIA, DML, DDL, TCL, TSQL, SELECT, DELETE, IF_EXISTS,
               INSERT, UPDATE, DROP, TRUNCATE, CREATE, ALTER, TABLENAME, TABLE_NAMES,
@@ -28,7 +29,9 @@ non terminal  INICIO, SENTENCIA, DML, DDL, TCL, TSQL, SELECT, DELETE, IF_EXISTS,
               A_PARAM_INDEX_OP, TABLE_CONSTRAINT, TABLE_CONSTRAINT_OPS, A_ADD_FK_CONST, A_ADD_OP_CONST, OPS, OP_FK, T_INDEX_INIT, T_INDEX,  
               T_INDEX_OP, COLUMN_INDEX, COL_INDEX, A_PARAM_COLUMN, RESERVED, BEGIN_TRANSACTION, COMMIT, ROLLBACK, SAVEPOINT, END, TRANS_OP, 
               TRANS_NAME_OP, INSERT_COLUMN_OP, VALUES, SELECT_TYPE, EX_TYPE, PERCENT, BODY, AS_STATEMENT, METHOD_NAME, REP, EXP, FROM, ON ,JOINS,
-              UNION, GROUP, ID_REP, HAVING, EXPR, REP_STATEMENT, ORDER, NOT, NUM_TYPE, ORDER_TYPE, BY, CONDITION;
+              UNION, GROUP, ID_REP, HAVING, EXPR, REP_STATEMENT, ORDER, NOT, NUM_TYPE, ORDER_TYPE, BY, CONDITION, PROCEDURE , FUNCTION , CURSORS,
+              PROC_OP, PROC_PARAMS, OUT, PROC_AS, PROC_TYPE, SEL_REP, FUNCTION_OPTIONS, AS_STATEMENT_FUNCTION, FUNCTION_BODY, OP_RETURN, 
+              PROC_PARAMS_FUNCTION, OP_CURSOR, FOR_CURSOR, FOR_EXTENDED, OF_ID, OF_ID_INIT;
 
 start with INICIO;
 
@@ -149,12 +152,14 @@ start with INICIO;
                     | Avg Parentesis_a TABLENAME_TWO Parentesis_c | Max Parentesis_a TABLENAME_TWO Parentesis_c 
                     | Min Parentesis_a TABLENAME_TWO Parentesis_c
     ;
-    FROM ::= From TABLENAME Id JOINS | From TABLENAME JOINS | 
+    FROM ::= From TABLENAME Id JOINS | From TABLENAME JOINS | From TABLENAME Coma SEL_REP JOINS | From TABLENAME Id Coma SEL_REP JOINS
     ;
-    GROUP ::= Group By TABLENAME_TWO | 
+    SEL_REP ::= TABLENAME | TABLENAME Coma SEL_REP | TABLENAME Id | TABLENAME Id Coma SEL_REP
+    ;
+    GROUP ::= Group By TABLENAME_TWO ORDER 
     ;
     JOINS ::= Inner Join UNION | Outer Join UNION | Left Join UNION | Left Outer Join UNION | Right Join UNION | Right Outer Join UNION
-              | Full Outer Join UNION | GROUP 
+              | Full Outer Join UNION | GROUP | ORDER | 
     ;
     UNION ::= TABLENAME Id ON | TABLENAME ON
     ;
@@ -176,7 +181,51 @@ start with INICIO;
     ;
     NOT ::= Not | 
     ;
-    ORDER ::= Order By TABLENAME_TWO ORDER_TYPE | 
+    ORDER ::= Order By TABLENAME_TWO ORDER_TYPE 
     ;
-    ORDER_TYPE ::= Asc | Desc
+    ORDER_TYPE ::= Asc | Desc |
+    ;
+
+
+    //TRANSACT-SQL
+    TSQL ::= PROCEDURE | FUNCTION | CURSORS
+    ;
+    PROCEDURE ::= Create Proc PROC_OP | Create Procedure PROC_OP | Alter Procedure PROC_OP | Alter Proc PROC_OP
+    ;
+    PROC_OP ::= TABLENAME PROC_PARAMS As PROC_AS
+    ;
+    PROC_PARAMS ::= Arroba Id PROC_TYPE OUT |  Arroba Id PROC_TYPE OUT Coma PROC_PARAMS | 
+    ;
+    OUT ::= Out | Output |
+    ;
+    PROC_TYPE ::= INT | FLOAT | VARCHAR Parentesis_a Int Parentesis_c | BIT
+    ;
+    PROC_AS ::= INICIO
+    ;
+
+    //FUNCTION
+
+    FUNCTION ::= Create Function TABLENAME_TWO FUNCTION_OPTIONS Returns FUNCTION_BODY | Alter Function TABLENAME_TWO FUNCTION_OPTIONS Returns FUNCTION_BODY
+    ;
+    FUNCTION_OPTIONS ::= Parentesis_a PROC_PARAMS_FUNCTION Parentesis_c |
+    ;
+    PROC_PARAMS_FUNCTION ::= Arroba Id PROC_TYPE  | Arroba Id PROC_TYPE Coma PROC_PARAMS_FUNCTION 
+    ;
+    FUNCTION_BODY ::= Returns PROC_TYPE As INICIO Return OP_RETURN | Returns PROC_TYPE INICIO Return OP_RETURN
+    ;
+    OP_RETURN ::= Int | Float | Bit | String | Arroba Id
+    ;
+    
+//CURSOR
+    CURSORS ::=  Declare Id Cursor OP_CURSOR FOR_CURSOR
+    ;
+    OP_CURSOR ::= Scroll Id | Id | 
+    ;
+    FOR_CURSOR ::= For SELECT FOR_EXTENDED OF_ID_INIT
+    ;
+    FOR_EXTENDED ::= For Read Only | For Update |
+    ;
+    OF_ID_INIT ::= Of OF_ID | 
+    ;
+    OF_ID ::= Id Coma OF_ID | Id
     ;

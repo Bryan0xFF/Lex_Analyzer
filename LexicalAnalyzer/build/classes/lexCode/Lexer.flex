@@ -70,6 +70,7 @@ COLLATE {return new Symbol(sym.Collate, yychar, yyline, yytext());}
 ASC {return new Symbol(sym.Asc, yychar, yyline, yytext());}
 AS {return new Symbol(sym.As, yychar, yyline, yytext());}
 DESC {return new Symbol(sym.Desc, yychar, yyline, yytext());}
+FUNCTION {return new Symbol(sym.Function, yychar, yyline, yytext());}
 NOT {return new Symbol(sym.Not, yychar, yyline, yytext());}
 NULL {return new Symbol(sym.Null, yychar, yyline, yytext());}
 ADD {return new Symbol(sym.Add, yychar, yyline, yytext());}
@@ -83,6 +84,11 @@ JOIN {return new Symbol(sym.Join, yychar, yyline, yytext());}
 LEFT {return new Symbol(sym.Left, yychar, yyline, yytext());}
 RIGHT {return new Symbol(sym.Right, yychar, yyline, yytext());}
 FROM {return new Symbol(sym.From, yychar, yyline, yytext());}
+CREATE {return new Symbol(sym.Create, yychar, yyline, yytext());}
+PROC {return new Symbol(sym.Proc, yychar, yyline, yytext());}
+PROCEDURE {return new Symbol(sym.Procedure, yychar, yyline, yytext());}
+OUT {return new Symbol(sym.Out, yychar, yyline, yytext());}
+OUTPUT {return new Symbol(sym.Output, yychar, yyline, yytext());}
 OUTER {return new Symbol(sym.Outer, yychar, yyline, yytext());}
 INNER {return new Symbol(sym.Inner, yychar, yyline, yytext());}
 FULL {return new Symbol(sym.Full, yychar, yyline, yytext());}
@@ -90,6 +96,15 @@ GROUP {return new Symbol(sym.Group, yychar, yyline, yytext());}
 ORDER {return new Symbol(sym.Order, yychar, yyline, yytext());}
 NOT {return new Symbol(sym.Not, yychar, yyline, yytext());}
 BY {return new Symbol(sym.By, yychar, yyline, yytext());}
+DECLARE {return new Symbol(sym.Declare, yychar, yyline, yytext());}
+CURSOR {return new Symbol(sym.Cursor, yychar, yyline, yytext());}
+SCROLL {return new Symbol(sym.Scroll, yychar, yyline, yytext());}
+RETURNS {return new Symbol(sym.Returns, yychar, yyline, yytext());}
+RETURN {return new Symbol(sym.Return, yychar, yyline, yytext());}
+READ {return new Symbol(sym.Read, yychar, yyline, yytext());}
+Only {return new Symbol(sym.Only, yychar, yyline, yytext());}
+UPDATE {return new Symbol(sym.Update, yychar, yyline, yytext());}
+FOR {return new Symbol(sym.For, yychar, yyline, yytext());}
 "." {return new Symbol(sym.Punto, yychar, yyline, yytext());}
 "," {return new Symbol(sym.Coma, yychar, yyline, yytext());}
 ";" {return new Symbol(sym.Punto_Coma, yychar, yyline, yytext());}

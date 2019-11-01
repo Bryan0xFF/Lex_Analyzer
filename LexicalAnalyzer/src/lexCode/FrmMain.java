@@ -208,7 +208,7 @@ public class FrmMain extends javax.swing.JFrame {
                         s.parse();
                     } catch (Exception ex) {
                         Symbol sym = s.getSymbol();
-                        erroresS += "\nERROR: no se esperaba <"+sym.value+">. Line:  "+(UltimaLinea+sym.right)+". Column:  "+(sym.left);
+                        erroresS += "\nERROR: Unexpected Token:  <"+sym.value+">. At Line:  "+(UltimaLinea+sym.right)+".  At Column:  "+(sym.left);
                     }
                 }
                 
