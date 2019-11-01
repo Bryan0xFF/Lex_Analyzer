@@ -20,7 +20,7 @@ terminal Truncate, Go, Id, Int, Float, Bit, String, Punto, If, Exists,Add, Prima
     INT, FLOAT, BIT, Begin, End, Commit, Save, Rollback, Tran, Transaction, Arroba, Insert, Into, Values, Select, Top, Percent,
     Asterisco, As, All, Distinct, Corchete_a, Corchete_c, Count, Avg, Max, Min, Sum, From, Join, Inner, Outer, Left, Right, Full, Igual, Group,
     By, Having, MayorQue, MenorQue, MayorIgual, MenorIgual, And, Or, Order, Create, Proc, Procedure, Out, Output, VARCHAR, Function, Returns, Return,
-    Declare, Cursor, Scroll, For,Read, Only, Update;
+    Declare, Cursor, Scroll, For,Read, Only, Update, Names, NAME, File, Size ;
 
 non terminal  INICIO, SENTENCIA, DML, DDL, TCL, TSQL, SELECT, DELETE, IF_EXISTS,
               INSERT, UPDATE, DROP, TRUNCATE, CREATE, ALTER, TABLENAME, TABLE_NAMES,
@@ -31,7 +31,8 @@ non terminal  INICIO, SENTENCIA, DML, DDL, TCL, TSQL, SELECT, DELETE, IF_EXISTS,
               TRANS_NAME_OP, INSERT_COLUMN_OP, VALUES, SELECT_TYPE, EX_TYPE, PERCENT, BODY, AS_STATEMENT, METHOD_NAME, REP, EXP, FROM, ON ,JOINS,
               UNION, GROUP, ID_REP, HAVING, EXPR, REP_STATEMENT, ORDER, NOT, NUM_TYPE, ORDER_TYPE, BY, CONDITION, PROCEDURE , FUNCTION , CURSORS,
               PROC_OP, PROC_PARAMS, OUT, PROC_AS, PROC_TYPE, SEL_REP, FUNCTION_OPTIONS, AS_STATEMENT_FUNCTION, FUNCTION_BODY, OP_RETURN, 
-              PROC_PARAMS_FUNCTION, OP_CURSOR, FOR_CURSOR, FOR_EXTENDED, OF_ID, OF_ID_INIT;
+              PROC_PARAMS_FUNCTION, OP_CURSOR, FOR_CURSOR, FOR_EXTENDED, OF_ID, OF_ID_INIT, SIZE, C_DATABASE, DATABASE_ON, COLLATE, PRIMARY,
+              FILESPEC;
 
 start with INICIO;
 
@@ -44,6 +45,15 @@ start with INICIO;
 
     DDL ::= DROP | CREATE | ALTER | TRUNCATE
     ;
+    CREATE ::= Create Database C_DATABASE
+    ;
+    C_DATABASE ::= Create Database Id DATABASE_ON COLLATE;
+    DATABASE_ON ::= On PRIMARY FILESPEC|;
+    COLLATE ::= Collate Id|;
+    PRIMARY ::= Primary|;
+    FILESPEC ::= Parentesis_a Names Igual String Coma File Igual String SIZE Parentesis_c|Parentesis_a Names Igual String Coma File Igual String SIZE Parentesis_c Coma FILESPEC;
+    SIZE ::= Coma Size Igual Int|Coma Size Igual Bit;
+
     TRUNCATE ::= Truncate Table TABLENAME
     ;
     TABLENAME ::= Id | Id Punto Id | Id Punto Id Punto Id

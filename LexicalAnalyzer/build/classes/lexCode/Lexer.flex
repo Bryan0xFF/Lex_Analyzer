@@ -104,6 +104,10 @@ RETURN {return new Symbol(sym.Return, yychar, yyline, yytext());}
 READ {return new Symbol(sym.Read, yychar, yyline, yytext());}
 Only {return new Symbol(sym.Only, yychar, yyline, yytext());}
 UPDATE {return new Symbol(sym.Update, yychar, yyline, yytext());}
+NAMES {return new Symbol(sym.Names, yychar, yyline, yytext());}
+NAME {return new Symbol(sym.NAME, yychar, yyline, yytext());}
+FILE {return new Symbol(sym.File, yychar, yyline, yytext());}
+SIZE {return new Symbol(sym.Size, yychar, yyline, yytext());}
 FOR {return new Symbol(sym.For, yychar, yyline, yytext());}
 "." {return new Symbol(sym.Punto, yychar, yyline, yytext());}
 "," {return new Symbol(sym.Coma, yychar, yyline, yytext());}
